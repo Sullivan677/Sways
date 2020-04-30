@@ -40,9 +40,9 @@ class ProfileVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDe
         if indexPath.section == 3  {
             if isAuthenticated == true {
                 SignOut()
-                let alert = UIAlertController(title: "You're logout", message: "You have successfully sign out", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+//                let alert = UIAlertController(title: "You're logout", message: "You have successfully sign out", preferredStyle: UIAlertController.Style.alert)
+//                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+//                self.present(alert, animated: true, completion: nil)
             } else {
                 let vc = SignUpVC()
                 let navigationController = UINavigationController(rootViewController: vc)
@@ -82,7 +82,8 @@ extension ProfileVC: UITableViewDataSource {
         } else if indexPath.section == 3 {
             let authCell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
             authCell.accessoryType = .disclosureIndicator
-            authCell.textLabel?.text = "Sign Up / Log Out"
+            authCell.textLabel?.text = "Log Out"
+            authCell.detailTextLabel?.text = "Get back soon!"
             authCell.textLabel?.font = .systemFont(ofSize: 20, weight: .medium)
             authCell.detailTextLabel?.font = .systemFont(ofSize: 18, weight: .regular)
             authCell.selectionStyle = .none

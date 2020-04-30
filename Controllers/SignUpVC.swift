@@ -53,7 +53,7 @@ class SignUpVC: UIViewController {
         view.addSubview(titleText)
         titleText.translatesAutoresizingMaskIntoConstraints = false
         titleText.textAlignment = .center
-        titleText.text = "Livestream Workouts"
+        titleText.text = "Livestream Classes"
         titleText.font = .systemFont(ofSize: 26, weight: .bold)
         titleText.numberOfLines = 0;
         titleText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -69,7 +69,7 @@ class SignUpVC: UIViewController {
         subtitleText.font = .systemFont(ofSize: 20, weight: .regular)
         subtitleText.textColor = .lightGray
         subtitleText.numberOfLines = 0;
-        subtitleText.text = "Join sports classes, led by the best trainers"
+        subtitleText.text = "Join live sessions - led by the best trainers"
         subtitleText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         subtitleText.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 5).isActive = true
         subtitleText.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
