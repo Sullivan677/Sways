@@ -1,10 +1,11 @@
 import UIKit
+import Firebase
 import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    var handle: AuthStateDidChangeListenerHandle?
+    private var handle: AuthStateDidChangeListenerHandle?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -22,13 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.window?.rootViewController = signup
             }
         }
-        
-     //   let viewController = TabBar()
-//        window?.rootViewController = viewController
         window?.overrideUserInterfaceStyle = .light
         window?.tintColor = .black
         window?.backgroundColor = .white
-      //  viewController.selectedIndex = 1
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
     }

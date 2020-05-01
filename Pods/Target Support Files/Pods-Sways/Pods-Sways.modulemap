@@ -1,4 +1,4 @@
-framework module Pods_Sways {
+module Pods_Sways {
   umbrella header "Pods-Sways-umbrella.h"
 
   export *

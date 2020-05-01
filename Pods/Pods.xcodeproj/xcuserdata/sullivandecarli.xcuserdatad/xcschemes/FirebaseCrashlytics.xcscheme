@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "526C4398D095B3704EB933DADBC30093"
-               BuildableName = "FirebaseCrashlytics.framework"
+               BuildableName = "libFirebaseCrashlytics.a"
                BlueprintName = "FirebaseCrashlytics"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

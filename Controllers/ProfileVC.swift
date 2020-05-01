@@ -40,9 +40,6 @@ class ProfileVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDe
         if indexPath.section == 3  {
             if isAuthenticated == true {
                 SignOut()
-//                let alert = UIAlertController(title: "You're logout", message: "You have successfully sign out", preferredStyle: UIAlertController.Style.alert)
-//                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-//                self.present(alert, animated: true, completion: nil)
             } else {
                 let vc = SignUpVC()
                 let navigationController = UINavigationController(rootViewController: vc)

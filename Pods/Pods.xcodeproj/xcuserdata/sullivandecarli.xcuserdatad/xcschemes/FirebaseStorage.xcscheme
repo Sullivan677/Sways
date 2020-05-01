@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "23E7C4A52360C026F97E4A96D91B03CE"
-               BuildableName = "FirebaseStorage.framework"
+               BuildableName = "libFirebaseStorage.a"
                BlueprintName = "FirebaseStorage"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

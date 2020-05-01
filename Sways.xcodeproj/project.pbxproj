@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4ADA3B64BD0A5C1CAFB6844E /* Pods_SwaysTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BF4F0E31D2CE8736C291581 /* Pods_SwaysTests.framework */; };
-		58CDC6896DD6EF9D5AA8007D /* Pods_Sways.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B13B2EA4EB9613C65FA02BF5 /* Pods_Sways.framework */; };
+		2AA25FB13CD8496ADB5FFC6A /* libPods-Sways-SwaysUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71549F98FE689F08D0F61DD2 /* libPods-Sways-SwaysUITests.a */; };
 		757C5B482424C4E2009EC183 /* RequestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757C5B472424C4E2009EC183 /* RequestUser.swift */; };
 		75885E1F2411C21700960DD8 /* RequestFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75885E1C2411C21700960DD8 /* RequestFirebase.swift */; };
 		75885E202411C21700960DD8 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75885E1D2411C21700960DD8 /* RequestService.swift */; };
@@ -37,7 +36,8 @@
 		75C05A9F240FE3DE0032832D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75C05A9D240FE3DE0032832D /* LaunchScreen.storyboard */; };
 		75C05AAA240FE3DE0032832D /* SwaysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C05AA9240FE3DE0032832D /* SwaysTests.swift */; };
 		75C05AB5240FE3DE0032832D /* SwaysUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C05AB4240FE3DE0032832D /* SwaysUITests.swift */; };
-		E53D6DD983A30FB9590D4E02 /* Pods_Sways_SwaysUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5246BC7091A7D4D87DA62B8 /* Pods_Sways_SwaysUITests.framework */; };
+		C4EABB73F7936E8EB3A9DA67 /* libPods-SwaysTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D0758667EB13A57F2D7B9D /* libPods-SwaysTests.a */; };
+		EFEFB7F33E36B1220480F396 /* libPods-Sways.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36FCB0078A812B7B19043CB3 /* libPods-Sways.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,9 +58,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		36FCB0078A812B7B19043CB3 /* libPods-Sways.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sways.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AB4D4C815811CBC01F2DA71 /* Pods-SwaysTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwaysTests.debug.xcconfig"; path = "Target Support Files/Pods-SwaysTests/Pods-SwaysTests.debug.xcconfig"; sourceTree = "<group>"; };
 		577DB7624378CAE928836FD9 /* Pods-SwaysTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwaysTests.release.xcconfig"; path = "Target Support Files/Pods-SwaysTests/Pods-SwaysTests.release.xcconfig"; sourceTree = "<group>"; };
 		706D10B6E5EDE7C377410E70 /* Pods-Sways-SwaysUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sways-SwaysUITests.release.xcconfig"; path = "Target Support Files/Pods-Sways-SwaysUITests/Pods-Sways-SwaysUITests.release.xcconfig"; sourceTree = "<group>"; };
+		71549F98FE689F08D0F61DD2 /* libPods-Sways-SwaysUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sways-SwaysUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		757C5B472424C4E2009EC183 /* RequestUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUser.swift; sourceTree = "<group>"; };
 		75885E1C2411C21700960DD8 /* RequestFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFirebase.swift; sourceTree = "<group>"; };
 		75885E1D2411C21700960DD8 /* RequestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
@@ -97,11 +99,9 @@
 		75C05AB4240FE3DE0032832D /* SwaysUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwaysUITests.swift; sourceTree = "<group>"; };
 		75C05AB6240FE3DE0032832D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8960BC48514187FEDEE831DA /* Pods-Sways.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sways.debug.xcconfig"; path = "Target Support Files/Pods-Sways/Pods-Sways.debug.xcconfig"; sourceTree = "<group>"; };
-		9BF4F0E31D2CE8736C291581 /* Pods_SwaysTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwaysTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6F5474068F440A1943B8B77 /* Pods-Sways.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sways.release.xcconfig"; path = "Target Support Files/Pods-Sways/Pods-Sways.release.xcconfig"; sourceTree = "<group>"; };
-		B13B2EA4EB9613C65FA02BF5 /* Pods_Sways.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sways.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6D0758667EB13A57F2D7B9D /* libPods-SwaysTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwaysTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC122364BA4D307DD7EFAB3B /* Pods-Sways-SwaysUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sways-SwaysUITests.debug.xcconfig"; path = "Target Support Files/Pods-Sways-SwaysUITests/Pods-Sways-SwaysUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		F5246BC7091A7D4D87DA62B8 /* Pods_Sways_SwaysUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sways_SwaysUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +109,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58CDC6896DD6EF9D5AA8007D /* Pods_Sways.framework in Frameworks */,
 				75AF28D9244859D200B40C20 /* StoreKit.framework in Frameworks */,
+				EFEFB7F33E36B1220480F396 /* libPods-Sways.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4ADA3B64BD0A5C1CAFB6844E /* Pods_SwaysTests.framework in Frameworks */,
+				C4EABB73F7936E8EB3A9DA67 /* libPods-SwaysTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E53D6DD983A30FB9590D4E02 /* Pods_Sways_SwaysUITests.framework in Frameworks */,
+				2AA25FB13CD8496ADB5FFC6A /* libPods-Sways-SwaysUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,9 +137,9 @@
 			isa = PBXGroup;
 			children = (
 				75AF28D8244859D200B40C20 /* StoreKit.framework */,
-				B13B2EA4EB9613C65FA02BF5 /* Pods_Sways.framework */,
-				F5246BC7091A7D4D87DA62B8 /* Pods_Sways_SwaysUITests.framework */,
-				9BF4F0E31D2CE8736C291581 /* Pods_SwaysTests.framework */,
+				36FCB0078A812B7B19043CB3 /* libPods-Sways.a */,
+				71549F98FE689F08D0F61DD2 /* libPods-Sways-SwaysUITests.a */,
+				D6D0758667EB13A57F2D7B9D /* libPods-SwaysTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -298,8 +298,8 @@
 				75C05A8B240FE3DC0032832D /* Sources */,
 				75C05A8C240FE3DC0032832D /* Frameworks */,
 				75C05A8D240FE3DC0032832D /* Resources */,
-				619EA7010947E722F6824B79 /* [CP] Embed Pods Frameworks */,
 				755D8FD624326E4A00AFB843 /* ShellScript */,
+				EC47BADD15F59706757E7D4F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -337,7 +337,7 @@
 				75C05AAC240FE3DE0032832D /* Sources */,
 				75C05AAD240FE3DE0032832D /* Frameworks */,
 				75C05AAE240FE3DE0032832D /* Resources */,
-				F392BEADA47B6EB295B8C69A /* [CP] Embed Pods Frameworks */,
+				4A39832E416368E3942DE646 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -442,21 +442,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		619EA7010947E722F6824B79 /* [CP] Embed Pods Frameworks */ = {
+		4A39832E416368E3942DE646 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sways/Pods-Sways-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Sways-SwaysUITests/Pods-Sways-SwaysUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sways/Pods-Sways-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Sways-SwaysUITests/Pods-Sways-SwaysUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sways/Pods-Sways-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sways-SwaysUITests/Pods-Sways-SwaysUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		755D8FD624326E4A00AFB843 /* ShellScript */ = {
@@ -474,8 +474,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "\n";
 		};
 		96906345E409D83B11458827 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -521,21 +520,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F392BEADA47B6EB295B8C69A /* [CP] Embed Pods Frameworks */ = {
+		EC47BADD15F59706757E7D4F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sways-SwaysUITests/Pods-Sways-SwaysUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Sways/Pods-Sways-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sways-SwaysUITests/Pods-Sways-SwaysUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Sways/Pods-Sways-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sways-SwaysUITests/Pods-Sways-SwaysUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sways/Pods-Sways-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -734,7 +733,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sways/Sways.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = GNP5RY8L8R;
 				INFOPLIST_FILE = Sways/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -742,7 +741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.08;
+				MARKETING_VERSION = 1.09;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sullivan-decarli.Sways";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -757,7 +756,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sways/Sways.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = GNP5RY8L8R;
 				INFOPLIST_FILE = Sways/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -765,7 +764,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.08;
+				MARKETING_VERSION = 1.09;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sullivan-decarli.Sways";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

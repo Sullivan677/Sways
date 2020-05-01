@@ -1,4 +1,4 @@
-framework module Pods_Sways_SwaysUITests {
+module Pods_Sways_SwaysUITests {
   umbrella header "Pods-Sways-SwaysUITests-umbrella.h"
 
   export *
