@@ -731,6 +731,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8960BC48514187FEDEE831DA /* Pods-Sways.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sways/Sways.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -754,6 +755,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A6F5474068F440A1943B8B77 /* Pods-Sways.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sways/Sways.entitlements;
 				CODE_SIGN_STYLE = Automatic;
