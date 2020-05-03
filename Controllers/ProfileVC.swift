@@ -1,6 +1,7 @@
 import SafariServices
+import Firebase
 import UIKit
-import FirebaseAuth
+import firebaseAuth
 
 class ProfileVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDelegate {
     
