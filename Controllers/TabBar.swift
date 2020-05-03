@@ -18,7 +18,7 @@ class TabBar: UITabBarController {
         viewControllers = [
             generateNavigationController(for: BookingsVC(), title: "Bookings", image: UIImage(systemName: "calendar")!),
             generateNavigationController(for: HomeVC(), title: "Live Class", image: UIImage(systemName: "play.rectangle")!),
-            generateNavigationController(for: ProfileVC(), title: "Profile", image: UIImage(systemName: "person")!)
+            generateNavigationController(for: ProfilVC(), title: "Profile", image: UIImage(systemName: "person")!)
         ]
     }
     

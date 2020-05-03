@@ -1,6 +1,0 @@
-module Pods_Sways_SwaysUITests {
-  umbrella header "Pods-Sways-SwaysUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
