@@ -15,7 +15,6 @@ class BookingsVC: UITableViewController, SFSafariViewControllerDelegate {
     }
     
     var request: Request!
-    
     var requests = [Request]() {
         didSet {
             DispatchQueue.main.async {

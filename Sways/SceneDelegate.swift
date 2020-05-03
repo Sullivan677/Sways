@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            // here remove loadingView
             if((user) != nil){
                 let home = TabBar()
                 home.selectedIndex = 1
