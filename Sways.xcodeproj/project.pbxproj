@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		751F0C2724605A2700658D5A /* SubscribeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F0C2624605A2700658D5A /* SubscribeVC.swift */; };
 		757C5B482424C4E2009EC183 /* RequestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757C5B472424C4E2009EC183 /* RequestUser.swift */; };
 		75885E1F2411C21700960DD8 /* RequestFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75885E1C2411C21700960DD8 /* RequestFirebase.swift */; };
 		75885E202411C21700960DD8 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75885E1D2411C21700960DD8 /* RequestService.swift */; };
@@ -17,7 +18,6 @@
 		75B665222448576A000971EE /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B665202448576A000971EE /* TabBar.swift */; };
 		75B665232448576A000971EE /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B665212448576A000971EE /* SignUpVC.swift */; };
 		75B665252448577B000971EE /* BookingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B665242448577B000971EE /* BookingsVC.swift */; };
-		75B6652724485783000971EE /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B6652624485783000971EE /* ProfileVC.swift */; };
 		75B6652924485793000971EE /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B6652824485793000971EE /* HomeVC.swift */; };
 		75B6652B2448579D000971EE /* DetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B6652A2448579D000971EE /* DetailsVC.swift */; };
 		75B6652D244857A7000971EE /* SuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B6652C244857A7000971EE /* SuccessVC.swift */; };
@@ -57,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		751F0C2624605A2700658D5A /* SubscribeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeVC.swift; sourceTree = "<group>"; };
 		757C5B472424C4E2009EC183 /* RequestUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUser.swift; sourceTree = "<group>"; };
 		75885E1C2411C21700960DD8 /* RequestFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFirebase.swift; sourceTree = "<group>"; };
 		75885E1D2411C21700960DD8 /* RequestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
@@ -68,7 +69,6 @@
 		75B665202448576A000971EE /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		75B665212448576A000971EE /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		75B665242448577B000971EE /* BookingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingsVC.swift; sourceTree = "<group>"; };
-		75B6652624485783000971EE /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		75B6652824485793000971EE /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		75B6652A2448579D000971EE /* DetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsVC.swift; sourceTree = "<group>"; };
 		75B6652C244857A7000971EE /* SuccessVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessVC.swift; sourceTree = "<group>"; };
@@ -142,10 +142,10 @@
 				75B6652824485793000971EE /* HomeVC.swift */,
 				75B6652A2448579D000971EE /* DetailsVC.swift */,
 				75B665242448577B000971EE /* BookingsVC.swift */,
-				75B6652624485783000971EE /* ProfileVC.swift */,
 				75BEBD8E245EE26D0057BE87 /* ProfilVC.swift */,
 				75B6652C244857A7000971EE /* SuccessVC.swift */,
 				75A1D9992452081F00B7EFF0 /* StreamVC.swift */,
+				751F0C2624605A2700658D5A /* SubscribeVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -469,7 +469,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				75B665382448581E000971EE /* WorkoutCell.swift in Sources */,
-				75B6652724485783000971EE /* ProfileVC.swift in Sources */,
 				75B6652B2448579D000971EE /* DetailsVC.swift in Sources */,
 				75B665252448577B000971EE /* BookingsVC.swift in Sources */,
 				75B66535244857DD000971EE /* StoreObserver.swift in Sources */,
@@ -491,6 +490,7 @@
 				75B6652924485793000971EE /* HomeVC.swift in Sources */,
 				75B665222448576A000971EE /* TabBar.swift in Sources */,
 				75B66542244858E3000971EE /* Account.swift in Sources */,
+				751F0C2724605A2700658D5A /* SubscribeVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

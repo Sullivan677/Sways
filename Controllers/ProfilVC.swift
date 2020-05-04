@@ -1,7 +1,6 @@
 import SafariServices
-import Firebase
+import FirebaseAuth
 import UIKit
-import firebaseAuth
 
 class ProfilVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDelegate {
     
@@ -67,7 +66,7 @@ class ProfilVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDel
     }
 }
 
-extension ProfileVC: UITableViewDataSource {
+extension ProfilVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 2 {
