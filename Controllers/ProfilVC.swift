@@ -6,12 +6,12 @@ class ProfilVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDel
     
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     var safeArea: UILayoutGuide!
-    var isAuthenticated: Bool { return Auth.auth().currentUser != nil }
+  //  var isAuthenticated: Bool { return Auth.auth().currentUser != nil }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        self.title = "Profile"
+        self.title = NSLocalizedString("Profile", comment: "")
     }
     
     func setupTableView() {
@@ -31,20 +31,18 @@ class ProfilVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDel
           let firebaseAuth = Auth.auth()
           do {
               try firebaseAuth.signOut()
+            print("user logout")
           } catch let signOutError as NSError {
               print ("Error signing out: %@", signOutError)
+            let alert = UIAlertController(title: "Error", message: "We were not able to sign you out, check your internet connection.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
           }
       }
     
     func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 3  {
-            if isAuthenticated == true {
-                SignOut()
-            } else {
-                let vc = SignUpVC()
-                let navigationController = UINavigationController(rootViewController: vc)
-                present(navigationController, animated: true, completion: nil)
-            }
+            SignOut()
         } else if indexPath.section == 2 {
             let item: [Any] = ["Check out Sways", URL(string: "https://apps.apple.com/app/id1504080698")!]
             let vc = UIActivityViewController(activityItems: item, applicationActivities: nil)

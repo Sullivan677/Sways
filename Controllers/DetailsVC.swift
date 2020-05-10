@@ -76,7 +76,7 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
                 present(navigationController, animated: true, completion: nil)
             } else if transaction.transactionState == .failed {
                 print("User unable to make payment")
-                let alert = UIAlertController(title: "Oops!", message: "It's look's like an error occured, check your settings", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: "Oops!", message: NSLocalizedString("It's look's like an error occured, check your settings", comment: ""), preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 //remove it from the queue
@@ -153,7 +153,7 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
         view.addSubview(bookingButton)
         bookingButton.backgroundColor = .black
         bookingButton.addTarget(self, action: #selector(paymentBooking), for: .touchUpInside)
-        bookingButton.setTitle("Book Live Class", for: .normal)
+        bookingButton.setTitle(NSLocalizedString("Book Live Class", comment: ""), for: .normal)
         bookingButton.layer.cornerRadius = 25
         bookingButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
         bookingButton.translatesAutoresizingMaskIntoConstraints = false
@@ -203,7 +203,7 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
         if workout.classFree == true {
             priceLabel.text = "💳 Free"
         } else {
-            priceLabel.text = "💳 $4.99"
+            priceLabel.text = NSLocalizedString("💳 4,99$", comment: "")
         }
         priceLabel.textColor = .black
         priceLabel.font = .systemFont(ofSize: 20, weight: .regular)
@@ -216,7 +216,7 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
     
     func setupDateInfos() {
         self.stackView.addArrangedSubview(dateLabel)
-        dateLabel.text = "Join the live session on \(workout?.date ?? "") at \(workout?.time ?? "")"
+        dateLabel.text = "Join the live session on \(workout?.dateString ?? ""), \(workout?.time ?? "")"
         dateLabel.textColor = .black
         dateLabel.font = .systemFont(ofSize: 20, weight: .regular)
         dateLabel.numberOfLines = -1
@@ -255,11 +255,12 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
         guard let user = Auth.auth().currentUser else {
             return
         }
+        
         let userRequest: [String: Any] = [
             "partnerId": workout.identifier,
             "classTitle": workout.classTitle,
             "URLClass": workout.URLClass,
-            "date": workout.date,
+            "date": workout.dateString,
             "time": workout.time,
             "passwordClass": workout.passwordClass,
             "trainerName": workout.trainerName,
@@ -278,7 +279,7 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
             "partnerId": workout.identifier,
             "activityTitle": workout.classTitle,
             "URLClass": workout.URLClass,
-            "date": workout.date,
+            "date": workout.dateString,
             "trainerName": workout.trainerName,
             "clientName": user.displayName,
             "clientIdentifier": user.uid,

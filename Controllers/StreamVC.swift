@@ -14,7 +14,7 @@ class StreamVC: UIViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Join live"
+        self.title = NSLocalizedString("Join Live", comment: "")
         view.backgroundColor = .white
         let url = URL(string: "\(request.URLClass ?? "")")!
         webView.load(URLRequest(url: url))

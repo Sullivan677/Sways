@@ -29,7 +29,7 @@ class BookingsVC: UITableViewController, SFSafariViewControllerDelegate {
         let label = UILabel()
         label.font = .systemFont(ofSize: 26, weight: .semibold)
         label.numberOfLines = -1
-        label.text = "Nothing planned."
+        label.text = NSLocalizedString("Nothing planned", comment: "")
         return label
     }()
     
@@ -37,7 +37,7 @@ class BookingsVC: UITableViewController, SFSafariViewControllerDelegate {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .regular)
         label.numberOfLines = -1
-        label.text = "Start browsing classes for your next workout."
+        label.text = NSLocalizedString("Start browsing classes for your next workout.", comment: "")
         return label
     }()
     
@@ -95,7 +95,7 @@ class BookingsVC: UITableViewController, SFSafariViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Bookings"
+        self.title = NSLocalizedString("Bookings", comment: "")
         loadData()
         updateUI()
     }

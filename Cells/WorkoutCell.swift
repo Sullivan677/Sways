@@ -29,6 +29,10 @@ class WorkoutCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("\(Workout.self) is being deinitialized.")
+    }
+    
     func configureImageView() {
         classImage.layer.cornerRadius = 0
         classImage.contentMode = .scaleAspectFill

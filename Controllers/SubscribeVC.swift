@@ -9,6 +9,4 @@ class SubscribeVC: UIViewController {
 
     }
     
-
-
 }

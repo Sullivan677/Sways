@@ -1,6 +1,8 @@
 import UIKit
 import FirebaseFirestore
 import MessageUI
+import AVFoundation
+
 
 class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -50,22 +52,23 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
     }
     
-    func loadData() {
-        service = WorkoutService()
-        service?.get { classes in
-            self.workouts = classes.filter { (workoutService) -> Bool in
-                workoutService.classActive != false
-            }
-            self.tableView.reloadData()
-        }
-    }
+      func loadData() {
+         service = WorkoutService()
+         service?.get { [weak self] classes in
+            self?.workouts = classes.filter { (workoutService) -> Bool in
+                 workoutService.classActive != false
+             }.sorted(by: { (a, b) -> Bool in
+                 a.dateClass < b.dateClass
+             })
+            self?.tableView.reloadData()
+         }
+     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.frame.height
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          print("Number of sections: \(workouts.count)")
         return workouts.count
     }
     
@@ -75,7 +78,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
        let workout = workouts[indexPath.row]
         cell.titleClass.text = workout.classTitle
         cell.titleClass.numberOfLines = 4
-        cell.dateClass.text = workout.date
+        cell.dateClass.text = workout.dateString
         cell.selectionStyle = .none
         if let url = URL(string: workout.classImage) {
             cell.classImage.kf.setImage(with: url)
@@ -98,11 +101,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection  section: Int) -> UIView? {
         let headerView  = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height));
         let bigTitle = UILabel(frame: CGRect(x: 20, y: 70, width: 250, height: 400))
-        bigTitle.text = "Live sports classes, led by top trainers - swipe up to check this week's classes ⬆️"
+        bigTitle.text = NSLocalizedString( "Live sports classes, led by top trainers - swipe up to check this week's classes ⬆️", comment: "")
         bigTitle.numberOfLines = -1
         bigTitle.font = .systemFont(ofSize: 36, weight: .black)
         headerView.addSubview(bigTitle)
         return headerView
+
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -113,11 +117,11 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let footerView  = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height));
         let bigTitle = UILabel(frame: CGRect(x: 20, y: 70, width: 250, height: 360))
         let emailButton = UIButton(frame: CGRect(x: 20, y: 440, width: 250, height: 50))
-        bigTitle.text = "We publish new classes every Sunday at 6:00 p.m - What classes are you interested in?"
+        bigTitle.text = NSLocalizedString("We publish new classes every Sunday at 6:00 p.m - What classes are you interested in?", comment: "")
         bigTitle.numberOfLines = -1
         bigTitle.font = .systemFont(ofSize: 36, weight: .black)
         emailButton.backgroundColor = .black
-        emailButton.setTitle("Suggest a class", for: .normal)
+        emailButton.setTitle(NSLocalizedString("Suggest a class", comment: ""), for: .normal)
         emailButton.layer.cornerRadius = 25
         emailButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
         emailButton.addTarget(self, action: #selector(showMailComposer), for: .touchUpInside)

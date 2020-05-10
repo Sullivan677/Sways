@@ -29,7 +29,7 @@ class SuccessVC: UIViewController {
     
     func setupTitle() {
         view.addSubview(succesTitle)
-        succesTitle.text = "See you on the livestream"
+        succesTitle.text = NSLocalizedString("See you on the livestream", comment: "")
         succesTitle.textAlignment = .center
         succesTitle.font = UIFont.boldSystemFont(ofSize: 26)
         succesTitle.numberOfLines = 0
@@ -42,7 +42,7 @@ class SuccessVC: UIViewController {
     
     func setupSubtitle() {
         view.addSubview(successSubtitle)
-        successSubtitle.text = "Rendez-vous on \(workout.date ?? "") at \(workout.time ?? ""). Find the link to the livestream in your booking."
+        successSubtitle.text = "Rendez-vous on \(workout.dateString ?? "") at \(workout.time ?? ""). Find the link to the livestream in your booking."
         successSubtitle.textAlignment = .center
         successSubtitle.numberOfLines = 0
         successSubtitle.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +55,7 @@ class SuccessVC: UIViewController {
     func setupButton() {
         view.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
-        closeButton.setTitle("Close", for: .normal)
+        closeButton.setTitle(NSLocalizedString("Close", comment: ""), for: .normal)
         closeButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
         closeButton.layer.cornerRadius = 25
         closeButton.backgroundColor = .black

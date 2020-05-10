@@ -7,12 +7,12 @@ import StoreKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        initFirebase()
+        setupFirebase()
         SKPaymentQueue.default().add(StoreObserver.shared)
         return true
     }
     
-    private func initFirebase() {
+    private func setupFirebase() {
            FirebaseApp.configure()
        }
 
@@ -23,5 +23,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
 
     }
-
 }

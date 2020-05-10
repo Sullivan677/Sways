@@ -5,7 +5,7 @@ import AuthenticationServices
 import CryptoKit
 
 class SignUpVC: UIViewController {
-    let imageView = UIImageView(image: UIImage(named: "yoga-facedown"))
+    let imageView = UIImageView(image: UIImage(named: "yoga-cover"))
     let bottomView = UIView()
     let titleText = UILabel()
     let subtitleText = UILabel()
@@ -53,7 +53,7 @@ class SignUpVC: UIViewController {
         view.addSubview(titleText)
         titleText.translatesAutoresizingMaskIntoConstraints = false
         titleText.textAlignment = .center
-        titleText.text = "Livestream Classes"
+        titleText.text = NSLocalizedString("Livestream Classes", comment: "")
         titleText.font = .systemFont(ofSize: 26, weight: .bold)
         titleText.numberOfLines = 0;
         titleText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -69,7 +69,7 @@ class SignUpVC: UIViewController {
         subtitleText.font = .systemFont(ofSize: 20, weight: .regular)
         subtitleText.textColor = .lightGray
         subtitleText.numberOfLines = 0;
-        subtitleText.text = "Join live sessions - led by the best trainers"
+        subtitleText.text = NSLocalizedString("Join live sessions - led by the best trainers", comment: "")
         subtitleText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         subtitleText.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 5).isActive = true
         subtitleText.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
@@ -131,14 +131,14 @@ class SignUpVC: UIViewController {
         authorizationController.performRequests()
     }
 
-    @objc func signOut() {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-    }
+//    @objc func signOut() {
+//        let firebaseAuth = Auth.auth()
+//        do {
+//            try firebaseAuth.signOut()
+//        } catch let signOutError as NSError {
+//            print ("Error signing out: %@", signOutError)
+//        }
+//    }
 
     @available(iOS 13, *)
     private func sha256(_ input: String) -> String {
@@ -169,7 +169,7 @@ extension SignUpVC: ASAuthorizationControllerDelegate {
             let credential = OAuthProvider.credential(withProviderID: "apple.com",
                                                       idToken: idTokenString,
                                                       rawNonce: nonce)
-            Auth.auth().signIn(with: credential) { (authResult, error) in
+            Auth.auth().signIn(with: credential) { [weak self] (authResult, error) in
                 if (error != nil) {
                     // Error. If error.code == .MissingOrInvalidNonce, make sure
                     // you're sending the SHA256-hashed nonce as a hex string with
@@ -177,7 +177,7 @@ extension SignUpVC: ASAuthorizationControllerDelegate {
                     print(error?.localizedDescription ?? "")
                     return
                 }
-                self.dismiss(animated: true, completion: nil)
+                self?.dismiss(animated: true, completion: nil)
                 guard let user = authResult?.user else { return }
                 let email = user.email ?? ""
                 let displayName = user.displayName ?? ""
@@ -192,7 +192,6 @@ extension SignUpVC: ASAuthorizationControllerDelegate {
                         print("Error writing document: \(err)")
                     } else {
                         print("the user has sign up or is logged in")
-                         print("\(Auth.auth().currentUser)")
                     }
                 }
             }

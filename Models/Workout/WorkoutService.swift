@@ -5,7 +5,7 @@ class WorkoutService {
 
     func get(handler: @escaping ([Workout]) -> Void) {
         database.collection("Workouts")
-            .addSnapshotListener { querySnapshot, err in
+            .addSnapshotListener { [weak self] querySnapshot, err in
                 if let error = err {
                     print(error)
                     handler([])

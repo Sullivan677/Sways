@@ -1,7 +1,9 @@
 import UIKit
-
+import FirebaseAuth
 class TabBar: UITabBarController {
     
+    var handle: AuthStateDidChangeListenerHandle?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -12,13 +14,14 @@ class TabBar: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupViewControllers()
+    //    Auth.auth().removeStateDidChangeListener(handle!)
     }
  
     func setupViewControllers() {
         viewControllers = [
-            generateNavigationController(for: BookingsVC(), title: "Bookings", image: UIImage(systemName: "calendar")!),
-            generateNavigationController(for: HomeVC(), title: "Live Class", image: UIImage(systemName: "play.rectangle")!),
-            generateNavigationController(for: ProfilVC(), title: "Profile", image: UIImage(systemName: "person")!)
+            generateNavigationController(for: BookingsVC(), title: NSLocalizedString("Bookings", comment: ""), image: UIImage(systemName: "calendar")!),
+            generateNavigationController(for: HomeVC(), title: NSLocalizedString("Live Class", comment: ""), image: UIImage(systemName: "play.rectangle")!),
+            generateNavigationController(for: ProfilVC(), title: NSLocalizedString("Profile", comment: ""), image: UIImage(systemName: "person")!)
         ]
     }
     
