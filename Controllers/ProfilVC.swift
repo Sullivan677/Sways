@@ -10,6 +10,7 @@ class ProfilVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
         setupTableView()
         self.title = NSLocalizedString("Profile", comment: "")
     }

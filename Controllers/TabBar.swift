@@ -14,7 +14,6 @@ class TabBar: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupViewControllers()
-    //    Auth.auth().removeStateDidChangeListener(handle!)
     }
  
     func setupViewControllers() {

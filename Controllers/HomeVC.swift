@@ -3,7 +3,6 @@ import FirebaseFirestore
 import MessageUI
 import AVFoundation
 
-
 class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let cellId = "cellId"
@@ -106,7 +105,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         bigTitle.font = .systemFont(ofSize: 36, weight: .black)
         headerView.addSubview(bigTitle)
         return headerView
-
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

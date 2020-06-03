@@ -95,6 +95,7 @@ class BookingsVC: UITableViewController, SFSafariViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
         self.title = NSLocalizedString("Bookings", comment: "")
         loadData()
         updateUI()
