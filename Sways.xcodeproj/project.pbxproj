@@ -691,7 +691,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sways/Sways.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = GNP5RY8L8R;
 				INFOPLIST_FILE = Sways/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -699,7 +699,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.09;
+				MARKETING_VERSION = 2.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sullivan-decarli.Sways";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -714,7 +714,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sways/Sways.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = GNP5RY8L8R;
 				INFOPLIST_FILE = Sways/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -722,7 +722,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.09;
+				MARKETING_VERSION = 2.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sullivan-decarli.Sways";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

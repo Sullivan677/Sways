@@ -10,9 +10,10 @@ class SignUpVC: UIViewController {
     
     let videoLayer = UIView()
     let titleText = UILabel()
-    let appleButton = ASAuthorizationAppleIDButton(type: .continue, style: .white)
+    let appleButton = ASAuthorizationAppleIDButton(type: .continue, style: .whiteOutline)
     let db = Firestore.firestore()
-    
+    let players = AVPlayer()
+        
     override func loadView() {
         super.loadView()
         setupVideoBck()
@@ -20,26 +21,31 @@ class SignUpVC: UIViewController {
         setupTitle()
         playVideo()
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.players.pause()
+        print("*** Video paused.")
+    }
+    
     private func playVideo() {
-          guard let path = Bundle.main.path(forResource: "sways_Intro", ofType:"mp4") else {
-              debugPrint("video.m4v not found")
-              return
-          }
-          let player = AVPlayer(url: URL(fileURLWithPath: path))
-          let playerLayer = AVPlayerLayer(player: player)
+        guard let path = Bundle.main.path(forResource: "sways_Intro", ofType:"mp4") else {
+            debugPrint("video.m4v not found")
+            return
+        }
+        let player = AVPlayer(url: URL(fileURLWithPath: path))
+        let playerLayer = AVPlayerLayer(player: player)
         playerLayer.frame = self.view.bounds
+        player.isMuted = true
         playerLayer.videoGravity = .resizeAspectFill
         self.videoLayer.layer.addSublayer(playerLayer)
         player.play()
-        
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: nil) { (_) in
             player.seek(to: CMTime.zero)
             player.play()
         }
-        
         videoLayer.bringSubviewToFront(appleButton)
-      }
+    }
     
     func setupVideoBck() {
         view.addSubview(videoLayer)
@@ -54,8 +60,8 @@ class SignUpVC: UIViewController {
         view.addSubview(titleText)
         titleText.translatesAutoresizingMaskIntoConstraints = false
         titleText.textAlignment = .center
-        titleText.text = NSLocalizedString("Unlimited Yoga & Fitness Classes", comment: "")
-        titleText.font = .systemFont(ofSize: 26, weight: .bold)
+        titleText.text = NSLocalizedString("Unlimited Yoga & Fitness Classes - Sign up to discover", comment: "")
+        titleText.font = .systemFont(ofSize: 24, weight: .bold)
         titleText.textColor = .white
         titleText.layer.shadowColor = UIColor.darkGray.cgColor
         titleText.layer.shadowRadius = 2.0
@@ -69,13 +75,13 @@ class SignUpVC: UIViewController {
         titleText.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
     }
 
-    
     func setupAppleButton() {
         view.addSubview(appleButton)
+        appleButton.cornerRadius = 18
         appleButton.addTarget(self, action: #selector(startSignInWithAppleFlow), for: .touchUpInside)
         appleButton.translatesAutoresizingMaskIntoConstraints = false
-        appleButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        appleButton.widthAnchor.constraint(equalToConstant: 224).isActive = true
+        appleButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        appleButton.widthAnchor.constraint(equalToConstant: 280).isActive = true
         appleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         appleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70).isActive = true
     }
@@ -124,7 +130,7 @@ class SignUpVC: UIViewController {
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
     }
-
+    
     @objc func signOut() {
         let firebaseAuth = Auth.auth()
         do {
@@ -133,7 +139,7 @@ class SignUpVC: UIViewController {
             print ("Error signing out: %@", signOutError)
         }
     }
-
+    
     @available(iOS 13, *)
     private func sha256(_ input: String) -> String {
         let inputData = Data(input.utf8)
@@ -186,7 +192,7 @@ extension SignUpVC: ASAuthorizationControllerDelegate {
                         print("Error writing document: \(err)")
                     } else {
                         print("the user has sign up or is logged in")
-                         print("\(Auth.auth().currentUser)")
+                        print("\(Auth.auth().currentUser)")
                     }
                 }
             }
