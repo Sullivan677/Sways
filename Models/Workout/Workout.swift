@@ -8,7 +8,6 @@ struct Workout {
     let classImage: String
     let URLClass: String
     let passwordClass: String
-    let date: String
     let dateClass: Date
     let time: String?
     let duration: Double

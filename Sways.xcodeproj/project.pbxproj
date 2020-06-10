@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		751F0C2724605A2700658D5A /* SubscribeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F0C2624605A2700658D5A /* SubscribeVC.swift */; };
+		75401B2024910CCE00FF30B5 /* CourseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75401B1F24910CCE00FF30B5 /* CourseVC.swift */; };
+		75401B2224910CD600FF30B5 /* MembershipVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75401B2124910CD600FF30B5 /* MembershipVC.swift */; };
 		755824E8246716C400E9D67B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 755824EA246716C400E9D67B /* Localizable.strings */; };
 		757C5B482424C4E2009EC183 /* RequestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757C5B472424C4E2009EC183 /* RequestUser.swift */; };
 		75885E1F2411C21700960DD8 /* RequestFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75885E1C2411C21700960DD8 /* RequestFirebase.swift */; };
@@ -59,9 +60,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		751F0C2624605A2700658D5A /* SubscribeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeVC.swift; sourceTree = "<group>"; };
 		7532230D2468833C007FC3E8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7532230E2468833D007FC3E8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		75401B1F24910CCE00FF30B5 /* CourseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseVC.swift; sourceTree = "<group>"; };
+		75401B2124910CD600FF30B5 /* MembershipVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembershipVC.swift; sourceTree = "<group>"; };
 		755824E52467168D00E9D67B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		755824E9246716C400E9D67B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		755824EB246716E600E9D67B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -151,11 +153,12 @@
 				75B665202448576A000971EE /* TabBar.swift */,
 				75B6652824485793000971EE /* HomeVC.swift */,
 				75B6652A2448579D000971EE /* DetailsVC.swift */,
+				75401B1F24910CCE00FF30B5 /* CourseVC.swift */,
 				75B665242448577B000971EE /* BookingsVC.swift */,
 				75BEBD8E245EE26D0057BE87 /* ProfilVC.swift */,
 				75B6652C244857A7000971EE /* SuccessVC.swift */,
 				75A1D9992452081F00B7EFF0 /* StreamVC.swift */,
-				751F0C2624605A2700658D5A /* SubscribeVC.swift */,
+				75401B2124910CD600FF30B5 /* MembershipVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -501,13 +504,14 @@
 				75885E202411C21700960DD8 /* RequestService.swift in Sources */,
 				75B66533244857DD000971EE /* AppDataTypes.swift in Sources */,
 				75C05A95240FE3DC0032832D /* SceneDelegate.swift in Sources */,
+				75401B2224910CD600FF30B5 /* MembershipVC.swift in Sources */,
 				75B6653F24485886000971EE /* WorkoutService.swift in Sources */,
 				75B66534244857DD000971EE /* AppProtocols.swift in Sources */,
 				75885E1F2411C21700960DD8 /* RequestFirebase.swift in Sources */,
+				75401B2024910CCE00FF30B5 /* CourseVC.swift in Sources */,
 				75B6652924485793000971EE /* HomeVC.swift in Sources */,
 				75B665222448576A000971EE /* TabBar.swift in Sources */,
 				75B66542244858E3000971EE /* Account.swift in Sources */,
-				751F0C2724605A2700658D5A /* SubscribeVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

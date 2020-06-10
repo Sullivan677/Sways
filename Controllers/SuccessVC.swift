@@ -10,11 +10,15 @@ class SuccessVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissSelf))
         setupImage()
         setupTitle()
         setupSubtitle()
-        setupButton()
     }
+    
+    @objc func dismissSelf() {
+           self.dismiss(animated: true, completion: nil)
+       }
     
     func setupImage() {
         view.addSubview(trophyImage)
@@ -51,26 +55,5 @@ class SuccessVC: UIViewController {
         successSubtitle.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         successSubtitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
     }
-    
-    func setupButton() {
-        view.addSubview(closeButton)
-        closeButton.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
-        closeButton.setTitle(NSLocalizedString("Close", comment: ""), for: .normal)
-        closeButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
-        closeButton.layer.cornerRadius = 25
-        closeButton.backgroundColor = .black
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        closeButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        closeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        closeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
-    }
-    
-    @objc func closeAction() {
-        if let tabBarController = self.presentingViewController as? UITabBarController {
-            self.dismiss(animated: true) {
-                tabBarController.selectedIndex = 0
-            }
-        }
-    }
+
 }

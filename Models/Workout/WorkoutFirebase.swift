@@ -11,7 +11,6 @@ extension Workout {
                                     classImage: document["classImage"] as? String ?? "",
                                     URLClass: document["URLClass"] as? String ?? "",
                                     passwordClass: document["passwordClass"] as? String ?? "",
-                                    date: document["date"] as? String ?? "",
                                     dateClass: (document["dateClass"] as? Timestamp)?.dateValue() ?? Date(),
                                     time: document["time"] as? String ?? "",
                                     duration: document["duration"] as? Double ?? 0.0,

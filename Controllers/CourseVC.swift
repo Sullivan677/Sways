@@ -5,147 +5,113 @@ import FirebaseStorage
 import FirebaseAuth
 import StoreKit
 
-class DetailsVC: UIViewController, SKPaymentTransactionObserver {
-
-    private var service: WorkoutService?
+class courseVC: UIViewController {
+    
     let productID = "com.Sways.livestreamclass"
+    private var service: WorkoutService?
     var workout: Workout!
     var workouts = [Workout]()
-    let toolbar = UIToolbar()
-    let bookingButton = UIButton()
-    let stackView = UIStackView()
-    let priceLabel = UILabel()
     let scrollView = UIScrollView()
     let contentView = UIView()
+    let toolbar = UIToolbar()
+    let bookingButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"),
                                                                    style: .plain, target: self,
                                                                    action: #selector(share))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissSelf))
-        ChargeImagesfromURL()
         setupToolBar()
         setupButton()
         setupScrollView()
         setupViews()
-        SKPaymentQueue.default().add(self)
+        ChargeImagesfromURL()
+      //  SKPaymentQueue.default().add(self)
     }
+
+//    @objc func paymentBooking() {
+//        let vc = MembershipVC()
+//        let navigationController = UINavigationController(rootViewController: vc)
+//        navigationController.modalPresentationStyle = .fullScreen
+//        present(navigationController, animated: true, completion: nil)
+//    }
     
     @objc func share() {
-        let item: [Any] = ["Check out the class, \(workout.classTitle) on Sways", URL(string: "https://apps.apple.com/app/id1504080698")!]
-           let vc = UIActivityViewController(activityItems: item, applicationActivities: nil)
-           present(vc, animated: true)
-       }
+           let item: [Any] = ["Check out the class, \(workout.classTitle) on Sways", URL(string: "https://apps.apple.com/app/id1504080698")!]
+              let vc = UIActivityViewController(activityItems: item, applicationActivities: nil)
+              present(vc, animated: true)
+          }
     
     @objc func dismissSelf() {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func ChargeImagesfromURL() {
+           if let photoURL = workout?.classImage, let url = URL(string: photoURL) {
+               headerImage.kf.setImage(with: url)
+           }
+        if let profilURL = workout?.pictureTrainer, let url = URL(string: profilURL) {
+                      profilImage.kf.setImage(with: url)
+                  }
+       }
+    
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for transaction in transactions {
-            if transaction.transactionState == .purchased {
-                print("transaction succesfull")
-         //remove it from the queue
-                SKPaymentQueue.default().finishTransaction(transaction)
-                submitUserRequest()
-                submitPartnerRequest()
-                let vc = SuccessVC()
-                vc.workout = workout
-                let navigationController = UINavigationController(rootViewController: vc)
-                navigationController.navigationBar.prefersLargeTitles = true
-                navigationController.modalPresentationStyle = .fullScreen
-                present(navigationController, animated: true, completion: nil)
-            } else if transaction.transactionState == .failed {
-                print("User unable to make payment")
-                let alert = UIAlertController(title: "Oops!", message: NSLocalizedString("It's look's like an error occured, check your settings", comment: ""), preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                //remove it from the queue
-                SKPaymentQueue.default().finishTransaction(transaction)
-            }
-           // else if transaction.transactionState == .purchasing
-        }
-    }
+           for transaction in transactions {
+               if transaction.transactionState == .purchased {
+                   print("transaction succesfull")
+            //remove it from the queue
+                   SKPaymentQueue.default().finishTransaction(transaction)
+                   submitUserRequest()
+                   submitPartnerRequest()
+                   let vc = SuccessVC()
+                   vc.workout = workout
+                   let navigationController = UINavigationController(rootViewController: vc)
+                   navigationController.navigationBar.prefersLargeTitles = true
+                   navigationController.modalPresentationStyle = .fullScreen
+                   present(navigationController, animated: true, completion: nil)
+               } else if transaction.transactionState == .failed {
+                   print("User unable to make payment")
+                   let alert = UIAlertController(title: "Oops!", message: NSLocalizedString("It's look's like an error occured, check your settings", comment: ""), preferredStyle: UIAlertController.Style.alert)
+                   alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                   self.present(alert, animated: true, completion: nil)
+                   //remove it from the queue
+                   SKPaymentQueue.default().finishTransaction(transaction)
+               }
+              // else if transaction.transactionState == .purchasing
+           }
+       }
     
     @objc func paymentBooking() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        if SKPaymentQueue.canMakePayments() {
-            let paymentRequest = SKMutablePayment()
-            paymentRequest.productIdentifier = productID
-            SKPaymentQueue.default().add(paymentRequest)
-        } else {
-            print("User unable to make purchase")
-        }
-        
-    }
-
-   func ChargeImagesfromURL() {
-              if let photoURL = workout?.classImage, let url = URL(string: photoURL) {
-                  headerImage.kf.setImage(with: url)
-              }
-           if let profilURL = workout?.pictureTrainer, let url = URL(string: profilURL) {
-                         profilImage.kf.setImage(with: url)
+           if Auth.auth().currentUser?.uid != nil {
+               if workout.classFree != true {
+                         if SKPaymentQueue.canMakePayments() {
+                             let paymentRequest = SKMutablePayment()
+                             paymentRequest.productIdentifier = productID
+                             SKPaymentQueue.default().add(paymentRequest)
+                         } else {
+                             print("User unable to make purchase")
+                         }
+                     } else {
+                         submitUserRequest()
+                         submitPartnerRequest()
+                         let vc = SuccessVC()
+                         vc.workout = workout
+                         let navigationController = UINavigationController(rootViewController: vc)
+                         navigationController.navigationBar.prefersLargeTitles = true
+                         navigationController.modalPresentationStyle = .fullScreen
+                         present(navigationController, animated: true, completion: nil)
                      }
-          }
-
-    func setupPrice() {
-        self.stackView.addArrangedSubview(priceLabel)
-        if workout.classFree == true {
-            priceLabel.text = "💳 Free"
-        } else {
-            priceLabel.text = NSLocalizedString("💳 4,99$", comment: "")
-        }
-        priceLabel.textColor = .black
-        priceLabel.font = .systemFont(ofSize: 20, weight: .regular)
-        priceLabel.numberOfLines = -1
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-       // priceLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 8).isActive = true
-        priceLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 15).isActive = true
-        priceLabel.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30).isActive = true
-    }
-
-    func submitUserRequest() {
-        guard let user = Auth.auth().currentUser else {
-            return
-        }
-        
-        let userRequest: [String: Any] = [
-            "partnerId": workout.identifier,
-            "classTitle": workout.classTitle,
-            "URLClass": workout.URLClass,
-            "date": workout.dateString,
-            "time": workout.time,
-            "passwordClass": workout.passwordClass,
-            "trainerName": workout.trainerName,
-            "classImage": workout.classImage
-        ]
-        Firestore.firestore()
-            .collection("User/\(user.uid)/Requests")
-            .addDocument(data: userRequest)
-    }
+            } else {
+             //user is not logged in
+               let vc = SignUpVC()
+               let navigationController = UINavigationController(rootViewController: vc)
+               present(navigationController, animated: true, completion: nil)
+            }
+       }
     
-    func submitPartnerRequest() {
-        guard let user = Auth.auth().currentUser else {
-            return
-        }
-        let partnerRequest: [String: Any] = [
-            "partnerId": workout.identifier,
-            "activityTitle": workout.classTitle,
-            "URLClass": workout.URLClass,
-            "date": workout.dateString,
-            "trainerName": workout.trainerName,
-            "clientName": user.displayName,
-            "clientIdentifier": user.uid,
-            "clientEmail": user.email
-        ]
-        Firestore.firestore()
-            .collection("Workouts/\(workout.identifier)/Requests")
-            .addDocument(data: partnerRequest)
-    }
-
     func setupScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -234,70 +200,110 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
         
     }
     
+    func submitUserRequest() {
+          guard let user = Auth.auth().currentUser else {
+              return
+          }
+          
+          let userRequest: [String: Any] = [
+              "partnerId": workout.identifier,
+              "classTitle": workout.classTitle,
+              "URLClass": workout.URLClass,
+              "date": workout.dateString,
+              "time": workout.time,
+              "passwordClass": workout.passwordClass,
+              "trainerName": workout.trainerName,
+              "classImage": workout.classImage
+          ]
+          Firestore.firestore()
+              .collection("User/\(user.uid)/Requests")
+              .addDocument(data: userRequest)
+      }
+      
+      func submitPartnerRequest() {
+          guard let user = Auth.auth().currentUser else {
+              return
+          }
+          let partnerRequest: [String: Any] = [
+              "partnerId": workout.identifier,
+              "activityTitle": workout.classTitle,
+              "URLClass": workout.URLClass,
+              "date": workout.dateString,
+              "trainerName": workout.trainerName,
+              "clientName": user.displayName,
+              "clientIdentifier": user.uid,
+              "clientEmail": user.email
+          ]
+          Firestore.firestore()
+              .collection("Workouts/\(workout.identifier)/Requests")
+              .addDocument(data: partnerRequest)
+      }
+    
+    
+    
     let headerImage: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    let profilImage: UIImageView = {
            let image = UIImageView()
            image.contentMode = .scaleAspectFill
            image.clipsToBounds = true
            image.translatesAutoresizingMaskIntoConstraints = false
            return image
        }()
-       
-       let profilImage: UIImageView = {
-              let image = UIImageView()
-              image.contentMode = .scaleAspectFill
-              image.clipsToBounds = true
-              image.translatesAutoresizingMaskIntoConstraints = false
-              return image
-          }()
-       
-       let titleLabel: UILabel = {
-           let label = UILabel()
-           label.numberOfLines = 0
-           label.font = .systemFont(ofSize: 32, weight: .heavy)
-           label.sizeToFit()
-           label.textColor = .black
-           label.translatesAutoresizingMaskIntoConstraints = false
-           return label
-       }()
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 32, weight: .heavy)
+        label.sizeToFit()
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
-       let dateLabel: UILabel = {
+    let dateLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.sizeToFit()
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let descriptionLabel: UILabel = {
            let label = UILabel()
            label.numberOfLines = 0
-           label.font = .systemFont(ofSize: 20, weight: .medium)
+           label.font = .systemFont(ofSize: 20, weight: .regular)
            label.sizeToFit()
            label.textColor = .black
            label.translatesAutoresizingMaskIntoConstraints = false
            return label
        }()
-       
-       let descriptionLabel: UILabel = {
-              let label = UILabel()
-              label.numberOfLines = 0
-              label.font = .systemFont(ofSize: 20, weight: .regular)
-              label.sizeToFit()
-              label.textColor = .black
-              label.translatesAutoresizingMaskIntoConstraints = false
-              return label
-          }()
-       
-       let howitworksLabel: UILabel = {
-              let label = UILabel()
-              label.numberOfLines = 0
-              label.font = .systemFont(ofSize: 20, weight: .bold)
-              label.sizeToFit()
-              label.textColor = .darkGray
-              label.translatesAutoresizingMaskIntoConstraints = false
-              return label
-          }()
-       
-       let termLabel: UILabel = {
-                let label = UILabel()
-                label.numberOfLines = 0
-                label.font = .systemFont(ofSize: 18, weight: .regular)
-                label.sizeToFit()
-                label.textColor = .black
-                label.translatesAutoresizingMaskIntoConstraints = false
-                return label
-            }()
-   
+    
+    let howitworksLabel: UILabel = {
+           let label = UILabel()
+           label.numberOfLines = 0
+           label.font = .systemFont(ofSize: 20, weight: .bold)
+           label.sizeToFit()
+           label.textColor = .darkGray
+           label.translatesAutoresizingMaskIntoConstraints = false
+           return label
+       }()
+    
+    let termLabel: UILabel = {
+             let label = UILabel()
+             label.numberOfLines = 0
+             label.font = .systemFont(ofSize: 18, weight: .regular)
+             label.sizeToFit()
+             label.textColor = .black
+             label.translatesAutoresizingMaskIntoConstraints = false
+             return label
+         }()
 }

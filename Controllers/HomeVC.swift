@@ -22,7 +22,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: true)
         tableView.register(WorkoutCell.self, forCellReuseIdentifier: WorkoutCell.identifier)
         setupTableView()
         tableView.delegate = self
@@ -31,12 +30,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if let pictureClass = workout?.classImage, let url = URL(string: pictureClass) {
             classPicture.kf.setImage(with: url)
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        self.tabBarController?.tabBar.isHidden = false
     }
     
     func setupTableView() {
@@ -89,8 +82,13 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let works = workouts[indexPath.row]
         let vc = DetailsVC()
         vc.workout = works
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+        let navigationController = UINavigationController(rootViewController: vc)
+    //   navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true, completion: nil)
+//        let vc = DetailsVC()
+//        vc.workout = works
+//        vc.hidesBottomBarWhenPushed = true
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
