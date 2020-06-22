@@ -1,10 +1,8 @@
 import UIKit
 import WebKit
-
 class StreamVC: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var workout: Workout!
-    var request: Request!
     
     override func loadView() {
         webView = WKWebView()
@@ -14,11 +12,9 @@ class StreamVC: UIViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = NSLocalizedString("Join Live", comment: "")
+        self.title = NSLocalizedString("Live", comment: "")
         view.backgroundColor = .white
-        let url = URL(string: "\(request.URLClass ?? "")")!
+        let url = URL(string: "\(workout.URLClass)")!
         webView.load(URLRequest(url: url))
     }
-
 }
-

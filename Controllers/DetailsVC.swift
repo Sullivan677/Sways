@@ -5,10 +5,9 @@ import FirebaseStorage
 import FirebaseAuth
 import StoreKit
 
-class DetailsVC: UIViewController, SKPaymentTransactionObserver {
+class DetailsVC: UIViewController {
 
     private var service: WorkoutService?
-    let productID = "com.Sways.livestreamclass"
     var workout: Workout!
     var workouts = [Workout]()
     let toolbar = UIToolbar()
@@ -17,133 +16,93 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
     let priceLabel = UILabel()
     let scrollView = UIScrollView()
     let contentView = UIView()
-    
+    var expirationDate: Date?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"),
-                                                                   style: .plain, target: self,
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"),
+                                                            style: .plain, target: self,
                                                                    action: #selector(share))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissSelf))
-        ChargeImagesfromURL()
         setupToolBar()
         setupButton()
         setupScrollView()
         setupViews()
-        SKPaymentQueue.default().add(self)
+        ChargeImagesfromURL()
+        NotificationCenter.default.addObserver(self, selector: #selector(subscriptionStatusWasChanged(_:)), name: NSNotification.Name(IAPSubInfoChangeNotification), object: nil)
+    }
+
+    
+    @objc func subscriptionStatusWasChanged(_ notification: Notification) {
+          guard let status = notification.object as? Bool else {return}
+            DispatchQueue.main.async {
+         
+              IAPService.instance.isSubscriptionActive { (status) in
+                  if status == true {
+                      //button links to StreamVC
+                      let vc = StreamVC()
+                      let navigationController = UINavigationController(rootViewController: vc)
+                      navigationController.modalPresentationStyle = .fullScreen
+                      self.present(navigationController, animated: true, completion: nil)
+                      
+                  } else {
+                      //Button links to MembershipVC
+                      let vc = MembershipVC()
+                      let navigationController = UINavigationController(rootViewController: vc)
+                      navigationController.modalPresentationStyle = .fullScreen
+                      self.present(navigationController, animated: true) {
+                          self.view.activityStopAnimating()
+                      }
+                      self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+                  }
+              }
+          }
+      }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IAPService.instance.isSubscriptionActive { (active) in
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func share() {
         let item: [Any] = ["Check out the class, \(workout.classTitle) on Sways", URL(string: "https://apps.apple.com/app/id1504080698")!]
-           let vc = UIActivityViewController(activityItems: item, applicationActivities: nil)
-           present(vc, animated: true)
-       }
-    
-    @objc func dismissSelf() {
-        self.dismiss(animated: true, completion: nil)
+        let vc = UIActivityViewController(activityItems: item, applicationActivities: nil)
+        present(vc, animated: true)
     }
     
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for transaction in transactions {
-            if transaction.transactionState == .purchased {
-                print("transaction succesfull")
-         //remove it from the queue
-                SKPaymentQueue.default().finishTransaction(transaction)
-                submitUserRequest()
-                submitPartnerRequest()
-                let vc = SuccessVC()
-                vc.workout = workout
+    @objc func joinLiveButton() {
+        IAPService.instance.isSubscriptionActive { (status) in
+            if status == true {
+                //button links to StreamVC
+                let vc = StreamVC()
+                vc.workout = self.workout
                 let navigationController = UINavigationController(rootViewController: vc)
-                navigationController.navigationBar.prefersLargeTitles = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                //Button links to MembershipVC
+                let vc = MembershipVC()
+                let navigationController = UINavigationController(rootViewController: vc)
                 navigationController.modalPresentationStyle = .fullScreen
-                present(navigationController, animated: true, completion: nil)
-            } else if transaction.transactionState == .failed {
-                print("User unable to make payment")
-                let alert = UIAlertController(title: "Oops!", message: NSLocalizedString("It's look's like an error occured, check your settings", comment: ""), preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                //remove it from the queue
-                SKPaymentQueue.default().finishTransaction(transaction)
+                self.present(navigationController, animated: true, completion: nil)
+                self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+                
             }
-           // else if transaction.transactionState == .purchasing
         }
-    }
-    
-    @objc func paymentBooking() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        if SKPaymentQueue.canMakePayments() {
-            let paymentRequest = SKMutablePayment()
-            paymentRequest.productIdentifier = productID
-            SKPaymentQueue.default().add(paymentRequest)
-        } else {
-            print("User unable to make purchase")
-        }
-        
     }
 
-   func ChargeImagesfromURL() {
-              if let photoURL = workout?.classImage, let url = URL(string: photoURL) {
-                  headerImage.kf.setImage(with: url)
-              }
-           if let profilURL = workout?.pictureTrainer, let url = URL(string: profilURL) {
-                         profilImage.kf.setImage(with: url)
-                     }
-          }
-
-    func setupPrice() {
-        self.stackView.addArrangedSubview(priceLabel)
-        if workout.classFree == true {
-            priceLabel.text = "💳 Free"
-        } else {
-            priceLabel.text = NSLocalizedString("💳 4,99$", comment: "")
+    func ChargeImagesfromURL() {
+        if let url = URL(string: workout.classImage) {
+            headerImage.kf.setImage(with: url)
         }
-        priceLabel.textColor = .black
-        priceLabel.font = .systemFont(ofSize: 20, weight: .regular)
-        priceLabel.numberOfLines = -1
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-       // priceLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 8).isActive = true
-        priceLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 15).isActive = true
-        priceLabel.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30).isActive = true
-    }
-
-    func submitUserRequest() {
-        guard let user = Auth.auth().currentUser else {
-            return
+        if let profilURL = workout?.pictureTrainer, let url = URL(string: profilURL) {
+            profilImage.kf.setImage(with: url)
         }
-        
-        let userRequest: [String: Any] = [
-            "partnerId": workout.identifier,
-            "classTitle": workout.classTitle,
-            "URLClass": workout.URLClass,
-            "date": workout.dateString,
-            "time": workout.time,
-            "passwordClass": workout.passwordClass,
-            "trainerName": workout.trainerName,
-            "classImage": workout.classImage
-        ]
-        Firestore.firestore()
-            .collection("User/\(user.uid)/Requests")
-            .addDocument(data: userRequest)
-    }
-    
-    func submitPartnerRequest() {
-        guard let user = Auth.auth().currentUser else {
-            return
-        }
-        let partnerRequest: [String: Any] = [
-            "partnerId": workout.identifier,
-            "activityTitle": workout.classTitle,
-            "URLClass": workout.URLClass,
-            "date": workout.dateString,
-            "trainerName": workout.trainerName,
-            "clientName": user.displayName,
-            "clientIdentifier": user.uid,
-            "clientEmail": user.email
-        ]
-        Firestore.firestore()
-            .collection("Workouts/\(workout.identifier)/Requests")
-            .addDocument(data: partnerRequest)
     }
 
     func setupScrollView() {
@@ -174,8 +133,8 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
     func setupButton() {
         view.addSubview(bookingButton)
         bookingButton.backgroundColor = .black
-        bookingButton.addTarget(self, action: #selector(paymentBooking), for: .touchUpInside)
-        bookingButton.setTitle("Book Live Class", for: .normal)
+        bookingButton.addTarget(self, action: #selector(joinLiveButton), for: .touchUpInside)
+        bookingButton.setTitle("Join Live Class", for: .normal)
         bookingButton.layer.cornerRadius = 25
         bookingButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
         bookingButton.translatesAutoresizingMaskIntoConstraints = false
@@ -194,16 +153,16 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
         titleLabel.text = "\(workout.classTitle)"
 
         contentView.addSubview(headerImage)
-        headerImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
-        headerImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 42).isActive = true
+        headerImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
+        headerImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 50).isActive = true
         headerImage.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        headerImage.heightAnchor.constraint(equalToConstant: 260).isActive = true
+        headerImage.heightAnchor.constraint(equalToConstant: 390).isActive = true
         headerImage.image = UIImage(named: "\(workout.classImage)")
         
         contentView.addSubview(profilImage)
-        profilImage.topAnchor.constraint(equalTo: headerImage.bottomAnchor, constant: -30).isActive = true
+        profilImage.topAnchor.constraint(equalTo: headerImage.bottomAnchor, constant: -70).isActive = true
         profilImage.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        profilImage.widthAnchor.constraint(equalToConstant: 140).isActive = true
+        profilImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
         profilImage.heightAnchor.constraint(equalToConstant: 140).isActive = true
         profilImage.image = UIImage(named: "\(workout.pictureTrainer)")
         
@@ -212,10 +171,10 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
         dateLabel.topAnchor.constraint(equalTo: profilImage.bottomAnchor, constant: 20).isActive = true
         dateLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
         dateLabel.text = "Join the live session held in \(workout.language) on \(workout.dateString), \(workout.time ?? "")"
-
+        
         contentView.addSubview(descriptionLabel)
         descriptionLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        descriptionLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 20).isActive = true
         descriptionLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
         descriptionLabel.text = "\(workout.description)"
 
@@ -231,7 +190,6 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
         termLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
         termLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         termLabel.text = "How does it work? After booking the class, you will receive the link to the livestream directly in your bookings. Open the Zoom link 5 minutes before the class starts. Can't make it on time? No problem, our classes are recorded and you can access the video for up to 24 hours. Class held in \(workout?.language ?? "")"
-        
     }
     
     let headerImage: UIImageView = {
@@ -253,7 +211,7 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
        let titleLabel: UILabel = {
            let label = UILabel()
            label.numberOfLines = 0
-           label.font = .systemFont(ofSize: 32, weight: .heavy)
+           label.font = .systemFont(ofSize: 36, weight: .heavy)
            label.sizeToFit()
            label.textColor = .black
            label.translatesAutoresizingMaskIntoConstraints = false
@@ -263,7 +221,7 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
        let dateLabel: UILabel = {
            let label = UILabel()
            label.numberOfLines = 0
-           label.font = .systemFont(ofSize: 20, weight: .medium)
+           label.font = .systemFont(ofSize: 22, weight: .medium)
            label.sizeToFit()
            label.textColor = .black
            label.translatesAutoresizingMaskIntoConstraints = false
@@ -301,3 +259,41 @@ class DetailsVC: UIViewController, SKPaymentTransactionObserver {
             }()
    
 }
+
+extension DetailsVC: IAPServiceDelegate {
+    func iapProductsLoaded() {
+        print("IAP PRODUCTS LOADED!")
+    }
+}
+
+extension UIView{
+
+func activityStartAnimating(activityColor: UIColor, backgroundColor: UIColor) {
+    let backgroundView = UIView()
+    backgroundView.frame = CGRect.init(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
+    backgroundView.backgroundColor = backgroundColor
+    backgroundView.tag = 475647
+
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    activityIndicator = UIActivityIndicatorView(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
+    activityIndicator.center = self.center
+    activityIndicator.hidesWhenStopped = true
+    activityIndicator.style = UIActivityIndicatorView.Style.medium
+    activityIndicator.color = activityColor
+    activityIndicator.startAnimating()
+    self.isUserInteractionEnabled = false
+
+    backgroundView.addSubview(activityIndicator)
+
+    self.addSubview(backgroundView)
+}
+
+func activityStopAnimating() {
+    if let background = viewWithTag(475647){
+        background.removeFromSuperview()
+    }
+    self.isUserInteractionEnabled = true
+}
+
+}
+

@@ -64,9 +64,9 @@ class SignUpVC: UIViewController {
         titleText.font = .systemFont(ofSize: 24, weight: .bold)
         titleText.textColor = .white
         titleText.layer.shadowColor = UIColor.darkGray.cgColor
-        titleText.layer.shadowRadius = 2.0
+        titleText.layer.shadowRadius = 1.0
         titleText.layer.shadowOpacity = 1.0
-        titleText.layer.shadowOffset = CGSize(width: 1.5, height: 1.5)
+        titleText.layer.shadowOffset = CGSize(width: 0.7, height: 0.7)
         titleText.layer.masksToBounds = false
         titleText.numberOfLines = 0;
         titleText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -77,11 +77,11 @@ class SignUpVC: UIViewController {
 
     func setupAppleButton() {
         view.addSubview(appleButton)
-        appleButton.cornerRadius = 18
+        appleButton.cornerRadius = 12
         appleButton.addTarget(self, action: #selector(startSignInWithAppleFlow), for: .touchUpInside)
         appleButton.translatesAutoresizingMaskIntoConstraints = false
-        appleButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        appleButton.widthAnchor.constraint(equalToConstant: 280).isActive = true
+        appleButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        appleButton.widthAnchor.constraint(equalToConstant: 235).isActive = true
         appleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         appleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70).isActive = true
     }

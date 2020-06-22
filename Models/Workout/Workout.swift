@@ -3,7 +3,6 @@ import Foundation
 struct Workout {
     let identifier: String
     let classActive: Bool
-    let classFree: Bool
     let classTitle: String
     let classImage: String
     let URLClass: String

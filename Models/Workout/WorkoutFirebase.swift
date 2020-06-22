@@ -6,7 +6,6 @@ extension Workout {
         for document in documents {
         workouts.append(Workout(identifier: document.documentID,
                                     classActive: document["classActive"] as? Bool ?? false,
-                                    classFree: document["classFree"] as? Bool ?? false,
                                     classTitle: document["classTitle"] as? String ?? "",
                                     classImage: document["classImage"] as? String ?? "",
                                     URLClass: document["URLClass"] as? String ?? "",

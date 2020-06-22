@@ -29,10 +29,6 @@ class WorkoutCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        print("\(Workout.self) is being deinitialized.")
-    }
-    
     func configureImageView() {
         classImage.layer.cornerRadius = 0
         classImage.contentMode = .scaleAspectFill
@@ -44,7 +40,7 @@ class WorkoutCell: UITableViewCell {
     
     func configureTitleLabel() {
         titleClass.numberOfLines = -1
-        titleClass.font = .systemFont(ofSize: 45, weight: .black)
+        titleClass.font = .systemFont(ofSize: 38, weight: .bold)
         titleClass.textColor = .white
         titleClass.layer.shadowColor = UIColor.darkGray.cgColor
         titleClass.layer.shadowRadius = 2.0
@@ -69,7 +65,7 @@ class WorkoutCell: UITableViewCell {
         seeMoreLabel.backgroundColor = .black
         seeMoreLabel.setTitleColor(.white, for: .disabled)
         seeMoreLabel.layer.cornerRadius = 25
-        seeMoreLabel.setTitle("Join Live", for: .disabled)
+        seeMoreLabel.setTitle("Learn More", for: .disabled)
         seeMoreLabel.isEnabled = false
     }
     
@@ -78,15 +74,14 @@ class WorkoutCell: UITableViewCell {
         seeMoreLabel.leadingAnchor.constraint(equalTo: classImage.leadingAnchor, constant: 25).isActive = true
         seeMoreLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
         seeMoreLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        seeMoreLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100).isActive = true
+        seeMoreLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40).isActive = true
     }
     
     func setupImageconstraint() {
         classImage.translatesAutoresizingMaskIntoConstraints = false
         classImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
         classImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
-        classImage.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-        classImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
+        classImage.heightAnchor.constraint(equalToConstant: 470).isActive = true
         classImage.clipsToBounds = true
     }
     

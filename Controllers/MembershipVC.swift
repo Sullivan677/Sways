@@ -1,6 +1,8 @@
 import UIKit
+import StoreKit
+import SafariServices
 
-class MembershipVC: UIViewController {
+class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
 
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -11,7 +13,6 @@ class MembershipVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
-
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissSelf))
         view.backgroundColor = .white
         setupToolBar()
@@ -19,10 +20,36 @@ class MembershipVC: UIViewController {
         setupPriceLabel()
         setupScrollView()
         setupViews()
+        IAPService.instance.iapDelegate = self
+        IAPService.instance.loadProducts()
+        NotificationCenter.default.addObserver(self, selector: #selector(showRestoredAlert), name: NSNotification.Name(IAPServiceRestoreNotification), object: nil)
     }
     
     @objc func dismissSelf() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func subscribeBtnWasPressed() {
+        IAPService.instance.attemptPurchaseForItemWith(productIndex: .subscription)
+       }
+    
+    @objc func openTerm() {
+        let safariVC = SFSafariViewController(url: (NSURL(string: "https://sways.app/termsandconditions.html")! as? URL)!)
+        present(safariVC, animated: true, completion: nil)
+        safariVC.delegate = self
+    }
+    
+    @objc func openPrivacy() {
+           let safariVC = SFSafariViewController(url: (NSURL(string: "https://sways.app/privacypolicy.html")! as? URL)!)
+           present(safariVC, animated: true, completion: nil)
+           safariVC.delegate = self
+       }
+    
+    @objc func showRestoredAlert() {
+        let alert = UIAlertController(title: "Success!", message: "Your purchases were successfully restored.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
     
     func setupScrollView(){
@@ -52,7 +79,7 @@ class MembershipVC: UIViewController {
     
     func setupPriceLabel() {
         view.addSubview(priceLabel)
-        priceLabel.text = "Get 7 days free. Then 19,99 EUR per month."
+        priceLabel.text = "Get 7 days free. Then 19,99€ per month."
         priceLabel.textColor = .black
         priceLabel.font = .systemFont(ofSize: 16, weight: .regular)
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +90,7 @@ class MembershipVC: UIViewController {
     func setupButton() {
         view.addSubview(subscribeButton)
         subscribeButton.backgroundColor = .black
-     //   subscribeButton.addTarget(self, action: #selector(subscribeFlow), for: .touchUpInside)
+        subscribeButton.addTarget(self, action: #selector(subscribeBtnWasPressed), for: .touchUpInside)
         subscribeButton.setTitle("Start your membership", for: .normal)
         subscribeButton.layer.cornerRadius = 25
         subscribeButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
@@ -91,7 +118,6 @@ class MembershipVC: UIViewController {
         headerImage.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         headerImage.heightAnchor.constraint(equalToConstant: 280).isActive = true
         
-        
         contentView.addSubview(secondTitlelabel)
         secondTitlelabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         secondTitlelabel.topAnchor.constraint(equalTo: headerImage.bottomAnchor, constant: 20).isActive = true
@@ -109,16 +135,26 @@ class MembershipVC: UIViewController {
         
         contentView.addSubview(termLabel)
         termLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        termLabel.topAnchor.constraint(equalTo: termTitleLabel.bottomAnchor, constant: 5).isActive = true
+        termLabel.topAnchor.constraint(equalTo: termTitleLabel.bottomAnchor, constant: 10).isActive = true
         termLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
-        termLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        
+        contentView.addSubview(termButton)
+        termButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        termButton.topAnchor.constraint(equalTo: termLabel.bottomAnchor, constant: 10).isActive = true
+        termButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
+
+        contentView.addSubview(privateButton)
+        privateButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        privateButton.topAnchor.constraint(equalTo: termButton.bottomAnchor, constant: 7).isActive = true
+        privateButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
+        privateButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
     let headerImage: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
-        image.image = UIImage(named: "yoga")
+        image.image = UIImage(named: "yoga-eleonora")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -157,35 +193,65 @@ class MembershipVC: UIViewController {
     }()
     
     let benefitsLabel: UILabel = {
-           let label = UILabel()
-           label.text = "Unlimited access to video content. \nUnlimited access to live classes, held by certified trainers. \nNew release - video contents are uploaded every month."
-           label.numberOfLines = 0
-           label.font = .systemFont(ofSize: 18, weight: .regular)
-           label.sizeToFit()
-           label.textColor = .black
-           label.translatesAutoresizingMaskIntoConstraints = false
-           return label
-       }()
+        let label = UILabel()
+        label.text = "Unlimited access to video content. \nUnlimited access to live classes, held by certified trainers. \nNew release - video contents are uploaded every month."
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.sizeToFit()
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     let termTitleLabel: UILabel = {
-           let label = UILabel()
-           label.text = "Subscription terms"
-           label.numberOfLines = 0
+        let label = UILabel()
+        label.text = "Subscription terms"
+        label.numberOfLines = 0
         label.font = .systemFont(ofSize: 17, weight: .medium)
-           label.sizeToFit()
-           label.textColor = .darkGray
-           label.translatesAutoresizingMaskIntoConstraints = false
-           return label
-       }()
+        label.sizeToFit()
+        label.textColor = .darkGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     let termLabel: UILabel = {
-             let label = UILabel()
-             label.text = "The membership fee will be billed at the beginning of the paying portion of your membership and each month thereafter unless and until you cancel your membership. We automatically bill your payment method each month on the calendar day corresponding to the commencement of your paying membership. We reserve the right to change our billing timing, in particular, if your payment method has not successfully been charged."
-             label.numberOfLines = 0
-             label.font = .systemFont(ofSize: 15, weight: .regular)
-             label.sizeToFit()
-             label.textColor = .black
-             label.translatesAutoresizingMaskIntoConstraints = false
-             return label
-         }()
+        let label = UILabel()
+        label.text = "After your free trial Sways will charge the membership fee to your iTunes account on a recurring basis until you cancel. Payments will continue unless you deactivate at least 24-hours prior to the end of the current cycle. Any unused portion of you free trial will be forfeited upon payment. You can cancel au-renew in your iTunes account settings."
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.sizeToFit()
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let termButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Terms & conditions", for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.textColor = .black
+        button.addTarget(self, action: #selector(openTerm), for: .touchUpInside)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let privateButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Privacy Policy", for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.textColor = .black
+        button.addTarget(self, action: #selector(openPrivacy), for: .touchUpInside)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+}
+
+extension MembershipVC: IAPServiceDelegate {
+    func iapProductsLoaded() {
+        print("IAP PRODUCTS LOADED!")
+    }
 }

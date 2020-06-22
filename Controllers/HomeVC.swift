@@ -2,7 +2,6 @@ import UIKit
 import FirebaseFirestore
 import MessageUI
 import AVFoundation
-
 class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let cellId = "cellId"
@@ -35,7 +34,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func setupTableView() {
         view.addSubview(tableView)
         tableView.showsVerticalScrollIndicator = false
-        tableView.isPagingEnabled = true
         tableView.allowsSelection = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -57,7 +55,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
      }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return view.frame.height
+        return 480
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,40 +80,21 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let works = workouts[indexPath.row]
         let vc = DetailsVC()
         vc.workout = works
-        let navigationController = UINavigationController(rootViewController: vc)
-    //   navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true, completion: nil)
-//        let vc = DetailsVC()
-//        vc.workout = works
-//        vc.hidesBottomBarWhenPushed = true
-//        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return  view.frame.height
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection  section: Int) -> UIView? {
-        let headerView  = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height));
-        let bigTitle = UILabel(frame: CGRect(x: 20, y: 70, width: 250, height: 400))
-        bigTitle.text = NSLocalizedString( "Live sports classes, led by top trainers - swipe up to check this week's classes ⬆️", comment: "")
-        bigTitle.numberOfLines = -1
-        bigTitle.font = .systemFont(ofSize: 36, weight: .black)
-        headerView.addSubview(bigTitle)
-        return headerView
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return  view.frame.height
+        return  520
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection  section: Int) -> UIView? {
         let footerView  = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: view.frame.height));
-        let bigTitle = UILabel(frame: CGRect(x: 20, y: 70, width: 250, height: 360))
+        let bigTitle = UILabel(frame: CGRect(x: 20, y: 40, width: 250, height: 360))
         let emailButton = UIButton(frame: CGRect(x: 20, y: 440, width: 250, height: 50))
         bigTitle.text = NSLocalizedString("We publish new classes every Sunday at 6:00 p.m - What classes are you interested in?", comment: "")
         bigTitle.numberOfLines = -1
-        bigTitle.font = .systemFont(ofSize: 36, weight: .black)
+        bigTitle.font = .systemFont(ofSize: 32, weight: .bold)
         emailButton.backgroundColor = .black
         emailButton.setTitle(NSLocalizedString("Suggest a class", comment: ""), for: .normal)
         emailButton.layer.cornerRadius = 25

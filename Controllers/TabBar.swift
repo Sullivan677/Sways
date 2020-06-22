@@ -18,8 +18,8 @@ class TabBar: UITabBarController {
  
     func setupViewControllers() {
         viewControllers = [
-            generateNavigationController(for: BookingsVC(), title: NSLocalizedString("Bookings", comment: ""), image: UIImage(systemName: "calendar")!),
-            generateNavigationController(for: HomeVC(), title: NSLocalizedString("Live Class", comment: ""), image: UIImage(systemName: "play.rectangle")!),
+            generateNavigationController(for: CourseVC(), title: NSLocalizedString("Courses", comment: ""), image: UIImage(systemName: "video")!),
+            generateNavigationController(for: HomeVC(), title: NSLocalizedString("Live Class", comment: ""), image: UIImage(systemName: "play")!),
             generateNavigationController(for: ProfilVC(), title: NSLocalizedString("Profile", comment: ""), image: UIImage(systemName: "person")!)
         ]
     }
@@ -30,6 +30,8 @@ class TabBar: UITabBarController {
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
+        navController.navigationBar.prefersLargeTitles = true
+        rootViewController.navigationItem.title = title
         return navController
     }
 }

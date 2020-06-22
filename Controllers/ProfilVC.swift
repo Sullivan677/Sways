@@ -6,11 +6,9 @@ class ProfilVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDel
     
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     var safeArea: UILayoutGuide!
-  //  var isAuthenticated: Bool { return Auth.auth().currentUser != nil }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
         setupTableView()
         self.title = NSLocalizedString("Profile", comment: "")
     }
