@@ -114,7 +114,7 @@ extension IAPService: SKProductsRequestDelegate {
         
         let bodyData = try! JSONSerialization.data(withJSONObject: body, options: [])
         
-        let url = URL(string: "https://sandbox.itunes.apple.com/verifyReceipt")!
+        let url = URL(string: "https://buy.itunes.apple.com/verifyReceipt")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = bodyData

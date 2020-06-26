@@ -91,7 +91,6 @@ class DetailsVC: UIViewController {
                 }
                 self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
                 
-                
             }
         }
     }
