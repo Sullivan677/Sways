@@ -5,17 +5,21 @@ protocol IAPServiceDelegate {
     func iapProductsLoaded()
 }
 
-class IAPService: SKReceiptRefreshRequest, SKProductsRequestDelegate {
+class IAPService: UIViewController {
     static let instance = IAPService()
-    
-    var iapDelegate: IAPServiceDelegate?
-    
-    var products = [SKProduct]()
-    var productIds = Set<String>()
-    var productRequest = SKProductsRequest()
-    
-    var expirationDate: Date?
-    var nonConsumablePurchaseWasMade = UserDefaults.standard.bool(forKey: "nonConsumablePurchaseWasMade")
+       
+       var iapDelegate: IAPServiceDelegate?
+       
+       var products = [SKProduct]()
+       var productIds = Set<String>()
+       var productRequest = SKProductsRequest()
+       
+       var expirationDate: Date?
+       var nonConsumablePurchaseWasMade = UserDefaults.standard.bool(forKey: "nonConsumablePurchaseWasMade")
+}
+
+extension IAPService: SKProductsRequestDelegate {
+   
     
     public func loadProducts() {
         productIdToStringSet()
@@ -219,5 +223,3 @@ extension IAPService: SKPaymentTransactionObserver {
         }
     }
 }
-
-

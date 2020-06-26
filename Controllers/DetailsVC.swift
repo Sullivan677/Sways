@@ -45,7 +45,6 @@ class DetailsVC: UIViewController {
                       let navigationController = UINavigationController(rootViewController: vc)
                       navigationController.modalPresentationStyle = .fullScreen
                       self.present(navigationController, animated: true, completion: nil)
-                      
                   } else {
                       //Button links to MembershipVC
                       let vc = MembershipVC()
@@ -82,15 +81,16 @@ class DetailsVC: UIViewController {
                 //button links to StreamVC
                 let vc = StreamVC()
                 vc.workout = self.workout
-                let navigationController = UINavigationController(rootViewController: vc)
                 self.navigationController?.pushViewController(vc, animated: true)
             } else {
-                //Button links to MembershipVC
+                
                 let vc = MembershipVC()
                 let navigationController = UINavigationController(rootViewController: vc)
-                navigationController.modalPresentationStyle = .fullScreen
-                self.present(navigationController, animated: true, completion: nil)
+                self.present(navigationController, animated: true) {
+                    self.view.activityStopAnimating()
+                }
                 self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+                
                 
             }
         }

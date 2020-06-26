@@ -26,6 +26,7 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     }
     
     @objc func dismissSelf() {
+        
         self.dismiss(animated: true, completion: nil)
     }
     

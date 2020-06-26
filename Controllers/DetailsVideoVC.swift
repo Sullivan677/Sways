@@ -111,7 +111,6 @@ class DetailsVideoVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                   //Otherwise present MembershipVC
                   let vc = MembershipVC()
                   let navigationController = UINavigationController(rootViewController: vc)
-                  navigationController.modalPresentationStyle = .fullScreen
                   self.present(navigationController, animated: true) {
                       self.view.activityStopAnimating()
                   }
