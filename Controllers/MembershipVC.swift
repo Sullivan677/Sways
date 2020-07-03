@@ -1,5 +1,4 @@
 import UIKit
-import StoreKit
 import SafariServices
 
 class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
@@ -20,40 +19,29 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         setupPriceLabel()
         setupScrollView()
         setupViews()
-        IAPService.instance.iapDelegate = self
-        IAPService.instance.loadProducts()
-        NotificationCenter.default.addObserver(self, selector: #selector(showRestoredAlert), name: NSNotification.Name(IAPServiceRestoreNotification), object: nil)
-    }
-    
-    @objc func dismissSelf() {
-        
-        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func subscribeBtnWasPressed() {
-        IAPService.instance.attemptPurchaseForItemWith(productIndex: .subscription)
-       }
+        //Buy the subscription
+    }
     
+    @objc func dismissSelf() {
+        self.dismiss(animated: true, completion: nil)
+    }
+ 
     @objc func openTerm() {
-        let safariVC = SFSafariViewController(url: (NSURL(string: "https://sways.app/termsandconditions.html")! as? URL)!)
+        let safariVC = SFSafariViewController(url: (NSURL(string: "https://sways.app/termsandconditions.html"))! as URL)
         present(safariVC, animated: true, completion: nil)
         safariVC.delegate = self
     }
     
     @objc func openPrivacy() {
-           let safariVC = SFSafariViewController(url: (NSURL(string: "https://sways.app/privacypolicy.html")! as? URL)!)
+        let safariVC = SFSafariViewController(url: (NSURL(string: "https://sways.app/privacypolicy.html"))! as URL)
            present(safariVC, animated: true, completion: nil)
            safariVC.delegate = self
        }
-    
-    @objc func showRestoredAlert() {
-        let alert = UIAlertController(title: "Success!", message: "Your purchases were successfully restored.", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func setupScrollView(){
+
+    func setupScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsVerticalScrollIndicator = false
@@ -249,10 +237,4 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-}
-
-extension MembershipVC: IAPServiceDelegate {
-    func iapProductsLoaded() {
-        print("IAP PRODUCTS LOADED!")
-    }
 }

@@ -6,19 +6,16 @@ class videoCell: UITableViewCell {
 
     var courseImage = UIImageView()
     var courseTitle = UILabel()
-    var courseDuration = UILabel()
-    var playImage = UIImageView()
+    var playButton = UIButton()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(courseImage)
         addSubview(courseTitle)
-        addSubview(courseDuration)
-         addSubview(playImage)
+        addSubview(playButton)
         configureimageView()
         configureTitle()
-        configureDuration()
-        configurePlayImage()
+        configurePlayButton()
       }
     
     required init?(coder _: NSCoder) {
@@ -28,39 +25,35 @@ class videoCell: UITableViewCell {
     func configureimageView() {
         courseImage.clipsToBounds = true
         courseImage.translatesAutoresizingMaskIntoConstraints = false
-        courseImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18).isActive = true
-        courseImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -18).isActive = true
+        courseImage.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        courseImage.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         courseImage.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         courseImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         courseImage.heightAnchor.constraint(equalToConstant: 240).isActive = true
     }
-    
-    func configurePlayImage() {
-        playImage.clipsToBounds = true
-        playImage.translatesAutoresizingMaskIntoConstraints = false   
-        playImage.image = UIImage(systemName: "play.circle")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        playImage.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        playImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        playImage.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        playImage.widthAnchor.constraint(equalToConstant: 70).isActive = true
-
-    }
+  
     
     func configureTitle() {
         courseTitle.numberOfLines = -1
         courseTitle.textColor = .black
-        courseTitle.font = .systemFont(ofSize: 22, weight: .bold)
+        courseTitle.font = .systemFont(ofSize: 24, weight: .medium)
         courseTitle.translatesAutoresizingMaskIntoConstraints = false
         courseTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18).isActive = true
         courseTitle.topAnchor.constraint(equalTo: courseImage.bottomAnchor, constant: 15).isActive = true
         courseTitle.widthAnchor.constraint(equalToConstant: 180).isActive = true
     }
-    
-    func configureDuration() {
-        courseDuration.numberOfLines = 0
-        courseDuration.font = .systemFont(ofSize: 18, weight: .regular)
-        courseDuration.translatesAutoresizingMaskIntoConstraints = false
-        courseDuration.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18).isActive = true
-        courseDuration.topAnchor.constraint(equalTo: courseTitle.bottomAnchor, constant: 5).isActive = true
+ 
+    func configurePlayButton() {
+        playButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
+        playButton.backgroundColor = .black
+        playButton.setTitleColor(.white, for: .disabled)
+        playButton.layer.cornerRadius = 8
+        playButton.setTitle("Play Now", for: .disabled)
+        playButton.isEnabled = false
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18).isActive = true
+        playButton.topAnchor.constraint(equalTo: courseTitle.bottomAnchor, constant: 8).isActive = true
+        playButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        playButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
     }
 }

@@ -192,7 +192,6 @@ extension SignUpVC: ASAuthorizationControllerDelegate {
                         print("Error writing document: \(err)")
                     } else {
                         print("the user has sign up or is logged in")
-                        print("\(Auth.auth().currentUser)")
                     }
                 }
             }

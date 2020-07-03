@@ -64,16 +64,16 @@ class WorkoutCell: UITableViewCell {
         seeMoreLabel.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
         seeMoreLabel.backgroundColor = .black
         seeMoreLabel.setTitleColor(.white, for: .disabled)
-        seeMoreLabel.layer.cornerRadius = 25
-        seeMoreLabel.setTitle("Learn More", for: .disabled)
+        seeMoreLabel.layer.cornerRadius = 8
+        seeMoreLabel.setTitle("Join Now", for: .disabled)
         seeMoreLabel.isEnabled = false
     }
     
     func setupSeeMoreConstraint() {
         seeMoreLabel.translatesAutoresizingMaskIntoConstraints = false
         seeMoreLabel.leadingAnchor.constraint(equalTo: classImage.leadingAnchor, constant: 25).isActive = true
-        seeMoreLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        seeMoreLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        seeMoreLabel.widthAnchor.constraint(equalToConstant: 180).isActive = true
+        seeMoreLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
         seeMoreLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40).isActive = true
     }
     

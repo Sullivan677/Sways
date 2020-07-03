@@ -1,7 +1,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-import StoreKit
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
@@ -41,6 +41,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        SKPaymentQueue.default().remove(IAPService.instance)
     }
 }

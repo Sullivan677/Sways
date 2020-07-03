@@ -41,11 +41,6 @@ class DetailsVideoVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let pictureCollection = collection?.headerCollection, let url = URL(string: pictureCollection) {
             headerImage.kf.setImage(with: url)
         }
-        
-        IAPService.instance.iapDelegate = self
-        IAPService.instance.loadProducts()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(showRestoredAlert), name: NSNotification.Name(IAPServiceRestoreNotification), object: nil)
     }
     
     @objc func showRestoredAlert() {
@@ -57,6 +52,7 @@ class DetailsVideoVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func setupTableView() {
         view.addSubview(tableView)
+        tableView.showsVerticalScrollIndicator = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,52 +80,37 @@ class DetailsVideoVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard let cell = centerCell else { return UITableViewCell() }
         let video = videos[indexPath.row]
         cell.courseTitle.text = video.title
-        cell.courseDuration.text = "\(video.duration) minutes"
         if let url = URL(string: video.videoImage) {
             cell.courseImage.kf.setImage(with: url)
         }
         cell.selectionStyle = .none
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-          
-          IAPService.instance.isSubscriptionActive { (isActive) in
-              
-              if isActive {
-                  //  Check subscription status and if the user is subscribed, open AVPlayer
-                  let video = self.videos[indexPath.row]
-                  let videoURL = NSURL(string: "\(video.videoURL ?? "")")
-                  let player = AVPlayer(url: videoURL! as URL)
-                  let playerViewController = AVPlayerViewController()
-                  playerViewController.player = player
-                  self.present(playerViewController, animated: true)
-                  {
-                     playerViewController.player!.play()
-                  }
-              } else {
-                  //Otherwise present MembershipVC
-                  let vc = MembershipVC()
-                  let navigationController = UINavigationController(rootViewController: vc)
-                  self.present(navigationController, animated: true) {
-                      self.view.activityStopAnimating()
-                  }
-                  self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
-              }
-          }
-      }
-   
+//            Check subscription status and if the user is subscribed, play video (open AVPlayer).
+//            let video = self.videos[indexPath.row]
+//            let videoURL = NSURL(string: "\(video.videoURL ?? "")")
+//            let player = AVPlayer(url: videoURL! as URL)
+//            let playerViewController = AVPlayerViewController()
+//            playerViewController.player = player
+//            self.present(playerViewController, animated: true)
+//            {
+//               playerViewController.player!.play()
+//            }
+//            Otherwise present MembershipVC
+//            let vc = MembershipVC()
+//            let navigationController = UINavigationController(rootViewController: vc)
+//            self.present(navigationController, animated: true)
+            
+    }
+    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 330
+        return 380
     }
     
      func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 400
-    }
-}
-
-extension DetailsVideoVC: IAPServiceDelegate {
-    func iapProductsLoaded() {
-        print("IAP PRODUCTS LOADED!")
     }
 }

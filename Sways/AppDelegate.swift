@@ -1,6 +1,5 @@
 import UIKit
 import Firebase
-import StoreKit
 
 @UIApplicationMain
 
@@ -8,7 +7,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupFirebase()
-         SKPaymentQueue.default().add(IAPService.instance)
         return true
     }
     
