@@ -25,6 +25,11 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     }
     
     @objc func subscribeBtnWasPressed() {
+        guard Purchases.canMakePayments() else {
+            self.showAlert(title: "Subscription Error", message: "Purchases are unavailable on this device.")
+            return
+        }
+
         guard let monthlyPackage = self.monthlyPackage else { return }
         
         //Purchase package for monthly subscription
