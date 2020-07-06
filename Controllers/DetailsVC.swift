@@ -3,7 +3,7 @@ import Kingfisher
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
-import StoreKit
+import Purchases
 
 class DetailsVC: UIViewController {
 
@@ -39,17 +39,20 @@ class DetailsVC: UIViewController {
     }
     
     @objc func joinLiveButton() {
-//        case purchased:
-//        present StreamVC
-//        case restored
-//        present StreamVC
-//        case failed
-//        present MembershipVC
-//        case expired
-//        present MembershipVC
-//        case subscribed
-//        present StreamVC
+        Purchases.shared.purchaserInfo { (purchaserInfo, error) in
+            //Check for 'subscribed' entitlement which means subscription is active
+            if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
+                let streamVC = StreamVC()
+                streamVC.workout = self.workout
+                let navigationController = UINavigationController(rootViewController: streamVC)
+                self.present(navigationController, animated: true)
+            } else {
+                let vc = MembershipVC()
+                let navigationController = UINavigationController(rootViewController: vc)
+                self.present(navigationController, animated: true)
+            }
         }
+    }
     
     func ChargeImagesfromURL() {
         if let url = URL(string: workout.classImage) {
