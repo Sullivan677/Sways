@@ -159,7 +159,7 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         privateButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         privateButton.topAnchor.constraint(equalTo: termButton.bottomAnchor, constant: 7).isActive = true
         privateButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
-        privateButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        privateButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30).isActive = true
     }
     
     func loadOffering() {
