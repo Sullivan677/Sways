@@ -146,7 +146,7 @@ class DetailsVC: UIViewController {
         termLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         termLabel.topAnchor.constraint(equalTo: howitworksLabel.bottomAnchor, constant: 5).isActive = true
         termLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
-        termLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        termLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30).isActive = true
         termLabel.text = "Click on Join Now when the class start and enjoy your class with your trainer. Can't make it on time? No problem, our classes are recorded and you can access the video for up to 24 hours."
     }
     
