@@ -9,7 +9,7 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     let toolbar = UIToolbar()
     let subscribeButton = UIButton()
     let priceLabel = UILabel()
-    var offering: Purchases.Offering?
+    var monthlyPackage: Purchases.Package?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,22 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     }
     
     @objc func subscribeBtnWasPressed() {
-        //Buy the subscription
+        guard let monthlyPackage = self.monthlyPackage else { return }
+        
+        //Purchase package for monthly subscription
+        Purchases.shared.purchasePackage(monthlyPackage) { (transaction, purchaserInfo, error, userCancelled) in
+            if userCancelled { return }
+            
+            if let error = error {
+                self.showAlert(title: "Subscription Error", message: error.localizedDescription)
+                return
+            }
+            
+            //Check subscription is active
+            if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     @objc func dismissSelf() {
@@ -143,13 +158,19 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     }
     
     func loadOffering() {
-        //Load current offering from RevenueCat - Default is 'default_monthly_offering'
+        //Load current offering from RevenueCat
         Purchases.shared.offerings { (offerings, error) in
             guard let offerings = offerings, let currentOffering = offerings.current else {
                 self.showAlert(title: "Subscription Error", message: "There was an error loading subscription details. Could not load current offering.")
                 return
             }
-            self.offering = currentOffering
+            
+            //Get monthly package from current offering
+            guard let monthlyPackage = currentOffering.monthly else {
+                self.showAlert(title: "Subscription Error", message: "There was an error loading subscription details. Could not find monthly package in current offering.")
+                return
+            }
+            self.monthlyPackage = monthlyPackage
         }
     }
     
