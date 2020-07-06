@@ -7,8 +7,8 @@ import Purchases
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        setupFirebase()
         setupRevenueCat()
+        setupFirebase()
         return true
     }
     
