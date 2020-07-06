@@ -1,5 +1,6 @@
 import UIKit
 import SafariServices
+import Purchases
 
 class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
 
@@ -8,6 +9,7 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     let toolbar = UIToolbar()
     let subscribeButton = UIButton()
     let priceLabel = UILabel()
+    var offering: Purchases.Offering?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +21,7 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         setupPriceLabel()
         setupScrollView()
         setupViews()
+        loadOffering()
     }
     
     @objc func subscribeBtnWasPressed() {
@@ -137,6 +140,17 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         privateButton.topAnchor.constraint(equalTo: termButton.bottomAnchor, constant: 7).isActive = true
         privateButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
         privateButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+    
+    func loadOffering() {
+        //Load current offering from RevenueCat - Default is 'default_monthly_offering'
+        Purchases.shared.offerings { (offerings, error) in
+            guard let offerings = offerings, let currentOffering = offerings.current else {
+                self.showAlert(title: "Subscription Error", message: "There was an error loading subscription details. Could not load current offering.")
+                return
+            }
+            self.offering = currentOffering
+        }
     }
     
     let headerImage: UIImageView = {

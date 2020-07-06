@@ -41,6 +41,7 @@
 		75CA51B2249E49F5003A33D0 /* VideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CA51AF249E49F5003A33D0 /* VideoService.swift */; };
 		75CA51B4249E4A0E003A33D0 /* videoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CA51B3249E4A0E003A33D0 /* videoCell.swift */; };
 		75E26DED2488044F00B5DDB4 /* sways_Intro.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 75E26DEC2488043600B5DDB4 /* sways_Intro.mp4 */; };
+		D8380EA924B3370F00CFAD33 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8380EA824B3370F00CFAD33 /* UIViewController+Alert.swift */; };
 		E931ED819C9E4BFA47C2E241 /* Pods_Sways.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE2245A9CD412941AABA9C9 /* Pods_Sways.framework */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +112,7 @@
 		75CA51B3249E4A0E003A33D0 /* videoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = videoCell.swift; sourceTree = "<group>"; };
 		75E26DEC2488043600B5DDB4 /* sways_Intro.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sways_Intro.mp4; sourceTree = "<group>"; };
 		7AE2245A9CD412941AABA9C9 /* Pods_Sways.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sways.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8380EA824B3370F00CFAD33 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		EE6375BBBBFA4BC865EDEBDD /* Pods-Sways.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sways.release.xcconfig"; path = "Target Support Files/Pods-Sways/Pods-Sways.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -278,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				75C8720924AF619B00529154 /* CustomButton.swift */,
+				D8380EA824B3370F00CFAD33 /* UIViewController+Alert.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -461,7 +464,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\n";
+			shellScript = "
+";
 		};
 		88A6A00FC77203C8C2B9C13B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -521,6 +525,7 @@
 				75B6653D24485886000971EE /* Workout.swift in Sources */,
 				75B665232448576A000971EE /* SignUpVC.swift in Sources */,
 				75CA51AB249E49BD003A33D0 /* DetailsVideoVC.swift in Sources */,
+				D8380EA924B3370F00CFAD33 /* UIViewController+Alert.swift in Sources */,
 				75CA51B2249E49F5003A33D0 /* VideoService.swift in Sources */,
 				75C05A93240FE3DC0032832D /* AppDelegate.swift in Sources */,
 				75CA51A7249E47BF003A33D0 /* CollectionFirebase.swift in Sources */,
