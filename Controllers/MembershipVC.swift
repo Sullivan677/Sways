@@ -9,6 +9,7 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     let toolbar = UIToolbar()
     let subscribeButton = UIButton()
     let priceLabel = UILabel()
+    let loadingIndicator = UIActivityIndicatorView()
     var monthlyPackage: Purchases.Package?
     
     override func viewDidLoad() {
@@ -18,9 +19,11 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         view.backgroundColor = .white
         setupToolBar()
         setupButton()
+        setupLoadingIndicator()
         setupPriceLabel()
         setupScrollView()
         setupViews()
+        
         loadOffering()
     }
     
@@ -32,18 +35,24 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
 
         guard let monthlyPackage = self.monthlyPackage else { return }
         
+        toggleLoading(loading: true)
+        
         //Purchase package for monthly subscription
         Purchases.shared.purchasePackage(monthlyPackage) { (transaction, purchaserInfo, error, userCancelled) in
-            if userCancelled { return }
-            
-            if let error = error {
-                self.showAlert(title: "Subscription Error", message: error.localizedDescription)
-                return
-            }
-            
-            //Check subscription is active
-            if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
-                self.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.toggleLoading(loading: false)
+                
+                if userCancelled { return }
+                
+                if let error = error {
+                    self.showAlert(title: "Subscription Error", message: error.localizedDescription)
+                    return
+                }
+                
+                //Check subscription is active
+                if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
         }
     }
@@ -111,6 +120,27 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         subscribeButton.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor, constant: -15).isActive = true
         subscribeButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         subscribeButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
+    }
+    
+    func setupLoadingIndicator() {
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.stopAnimating()
+        loadingIndicator.color = UIColor.black
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loadingIndicator)
+        loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loadingIndicator.centerYAnchor.constraint(equalTo: subscribeButton.centerYAnchor).isActive = true
+    }
+    
+    func toggleLoading(loading: Bool) {
+        switch loading {
+        case true:
+            subscribeButton.isHidden = true
+            loadingIndicator.startAnimating()
+        case false:
+            subscribeButton.isHidden = false
+            loadingIndicator.stopAnimating()
+        }
     }
     
     func setupViews() {
