@@ -90,21 +90,23 @@ class DetailsVideoVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         Purchases.shared.purchaserInfo { (purchaserInfo, error) in
-            //Check for 'subscribed' entitlement which means subscription is active
-            if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
-                let video = self.videos[indexPath.row]
-                let videoURL = NSURL(string: "\(video.videoURL ?? "")")
-                let player = AVPlayer(url: videoURL! as URL)
-                let playerViewController = AVPlayerViewController()
-                playerViewController.player = player
-                self.present(playerViewController, animated: true)
-                {
-                   playerViewController.player!.play()
+            DispatchQueue.main.async {
+                //Check for 'subscribed' entitlement which means subscription is active
+                if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
+                    let video = self.videos[indexPath.row]
+                    let videoURL = NSURL(string: "\(video.videoURL ?? "")")
+                    let player = AVPlayer(url: videoURL! as URL)
+                    let playerViewController = AVPlayerViewController()
+                    playerViewController.player = player
+                    self.present(playerViewController, animated: true)
+                    {
+                       playerViewController.player!.play()
+                    }
+                } else {
+                    let vc = MembershipVC()
+                    let navigationController = UINavigationController(rootViewController: vc)
+                    self.present(navigationController, animated: true)
                 }
-            } else {
-                let vc = MembershipVC()
-                let navigationController = UINavigationController(rootViewController: vc)
-                self.present(navigationController, animated: true)
             }
         }
     }

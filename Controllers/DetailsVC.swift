@@ -40,16 +40,18 @@ class DetailsVC: UIViewController {
     
     @objc func joinLiveButton() {
         Purchases.shared.purchaserInfo { (purchaserInfo, error) in
-            //Check for 'subscribed' entitlement which means subscription is active
-            if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
-                let streamVC = StreamVC()
-                streamVC.workout = self.workout
-                let navigationController = UINavigationController(rootViewController: streamVC)
-                self.present(navigationController, animated: true)
-            } else {
-                let vc = MembershipVC()
-                let navigationController = UINavigationController(rootViewController: vc)
-                self.present(navigationController, animated: true)
+            DispatchQueue.main.async {
+                //Check for 'subscribed' entitlement which means subscription is active
+                if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
+                    let streamVC = StreamVC()
+                    streamVC.workout = self.workout
+                    let navigationController = UINavigationController(rootViewController: streamVC)
+                    self.present(navigationController, animated: true)
+                } else {
+                    let vc = MembershipVC()
+                    let navigationController = UINavigationController(rootViewController: vc)
+                    self.present(navigationController, animated: true)
+                }
             }
         }
     }
