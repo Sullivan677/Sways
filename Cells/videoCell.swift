@@ -19,8 +19,8 @@ class videoCell: UITableViewCell {
       }
     
     required init?(coder _: NSCoder) {
-             fatalError("init(coder:) has not been implemented")
-         }
+         fatalError("init(coder:) has not been implemented")
+     }
     
     func configureimageView() {
         courseImage.clipsToBounds = true
@@ -32,7 +32,6 @@ class videoCell: UITableViewCell {
         courseImage.heightAnchor.constraint(equalToConstant: 240).isActive = true
     }
   
-    
     func configureTitle() {
         courseTitle.numberOfLines = -1
         courseTitle.textColor = .black
