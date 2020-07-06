@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import Purchases
 
 @UIApplicationMain
 
@@ -7,11 +8,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupFirebase()
+        setupRevenueCat()
         return true
     }
     
     private func setupFirebase() {
         FirebaseApp.configure()
+    }
+    
+    private func setupRevenueCat() {
+        Purchases.debugLogsEnabled = true
+        Purchases.configure(withAPIKey: RevenueCatPublicSDKKey)
     }
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
