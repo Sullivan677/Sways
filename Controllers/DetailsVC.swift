@@ -3,7 +3,7 @@ import Kingfisher
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
-import StoreKit
+import Purchases
 
 class DetailsVC: UIViewController {
 
@@ -39,17 +39,22 @@ class DetailsVC: UIViewController {
     }
     
     @objc func joinLiveButton() {
-//        case purchased:
-//        present StreamVC
-//        case restored
-//        present StreamVC
-//        case failed
-//        present MembershipVC
-//        case expired
-//        present MembershipVC
-//        case subscribed
-//        present StreamVC
+        Purchases.shared.purchaserInfo { (purchaserInfo, error) in
+            DispatchQueue.main.async {
+                //Check for 'subscribed' entitlement which means subscription is active
+                if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
+                    let streamVC = StreamVC()
+                    streamVC.workout = self.workout
+                    let navigationController = UINavigationController(rootViewController: streamVC)
+                    self.present(navigationController, animated: true)
+                } else {
+                    let vc = MembershipVC()
+                    let navigationController = UINavigationController(rootViewController: vc)
+                    self.present(navigationController, animated: true)
+                }
+            }
         }
+    }
     
     func ChargeImagesfromURL() {
         if let url = URL(string: workout.classImage) {
@@ -143,7 +148,7 @@ class DetailsVC: UIViewController {
         termLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         termLabel.topAnchor.constraint(equalTo: howitworksLabel.bottomAnchor, constant: 5).isActive = true
         termLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
-        termLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        termLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30).isActive = true
         termLabel.text = "Click on Join Now when the class start and enjoy your class with your trainer. Can't make it on time? No problem, our classes are recorded and you can access the video for up to 24 hours."
     }
     

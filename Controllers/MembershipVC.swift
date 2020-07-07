@@ -1,5 +1,6 @@
 import UIKit
 import SafariServices
+import Purchases
 
 class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
 
@@ -8,6 +9,8 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     let toolbar = UIToolbar()
     let subscribeButton = UIButton()
     let priceLabel = UILabel()
+    let loadingIndicator = UIActivityIndicatorView()
+    var monthlyPackage: Purchases.Package?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,13 +19,42 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         view.backgroundColor = .white
         setupToolBar()
         setupButton()
+        setupLoadingIndicator()
         setupPriceLabel()
         setupScrollView()
         setupViews()
+        
+        loadOffering()
     }
     
     @objc func subscribeBtnWasPressed() {
-        //Buy the subscription
+        guard Purchases.canMakePayments() else {
+            self.showAlert(title: "Subscription Error", message: "Purchases are unavailable on this device.")
+            return
+        }
+
+        guard let monthlyPackage = self.monthlyPackage else { return }
+        
+        toggleLoading(loading: true)
+        
+        //Purchase package for monthly subscription
+        Purchases.shared.purchasePackage(monthlyPackage) { (transaction, purchaserInfo, error, userCancelled) in
+            DispatchQueue.main.async {
+                self.toggleLoading(loading: false)
+                
+                if userCancelled { return }
+                
+                if let error = error {
+                    self.showAlert(title: "Subscription Error", message: error.localizedDescription)
+                    return
+                }
+                
+                //Check subscription is active
+                if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     @objc func dismissSelf() {
@@ -90,6 +122,27 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         subscribeButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
     }
     
+    func setupLoadingIndicator() {
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.stopAnimating()
+        loadingIndicator.color = UIColor.black
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loadingIndicator)
+        loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loadingIndicator.centerYAnchor.constraint(equalTo: subscribeButton.centerYAnchor).isActive = true
+    }
+    
+    func toggleLoading(loading: Bool) {
+        switch loading {
+        case true:
+            subscribeButton.isHidden = true
+            loadingIndicator.startAnimating()
+        case false:
+            subscribeButton.isHidden = false
+            loadingIndicator.stopAnimating()
+        }
+    }
+    
     func setupViews() {
         contentView.addSubview(titleLabel)
         titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -136,7 +189,24 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         privateButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         privateButton.topAnchor.constraint(equalTo: termButton.bottomAnchor, constant: 7).isActive = true
         privateButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
-        privateButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        privateButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30).isActive = true
+    }
+    
+    func loadOffering() {
+        //Load current offering from RevenueCat
+        Purchases.shared.offerings { (offerings, error) in
+            guard let offerings = offerings, let currentOffering = offerings.current else {
+                self.showAlert(title: "Subscription Error", message: "There was an error loading subscription details. Could not load current offering.")
+                return
+            }
+            
+            //Get monthly package from current offering
+            guard let monthlyPackage = currentOffering.monthly else {
+                self.showAlert(title: "Subscription Error", message: "There was an error loading subscription details. Could not find monthly package in current offering.")
+                return
+            }
+            self.monthlyPackage = monthlyPackage
+        }
     }
     
     let headerImage: UIImageView = {

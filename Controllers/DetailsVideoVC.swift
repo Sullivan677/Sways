@@ -3,6 +3,7 @@ import FirebaseFirestore
 import SafariServices
 import FirebaseAuth
 import AVKit
+import Purchases
 
 class DetailsVideoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, SFSafariViewControllerDelegate  {
     
@@ -88,21 +89,26 @@ class DetailsVideoVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//            Check subscription status and if the user is subscribed, play video (open AVPlayer).
-//            let video = self.videos[indexPath.row]
-//            let videoURL = NSURL(string: "\(video.videoURL ?? "")")
-//            let player = AVPlayer(url: videoURL! as URL)
-//            let playerViewController = AVPlayerViewController()
-//            playerViewController.player = player
-//            self.present(playerViewController, animated: true)
-//            {
-//               playerViewController.player!.play()
-//            }
-//            Otherwise present MembershipVC
-//            let vc = MembershipVC()
-//            let navigationController = UINavigationController(rootViewController: vc)
-//            self.present(navigationController, animated: true)
-            
+        Purchases.shared.purchaserInfo { (purchaserInfo, error) in
+            DispatchQueue.main.async {
+                //Check for 'subscribed' entitlement which means subscription is active
+                if purchaserInfo?.entitlements.all[RevenueCatEntitlementsSubscribedID]?.isActive == true {
+                    let video = self.videos[indexPath.row]
+                    let videoURL = NSURL(string: "\(video.videoURL ?? "")")
+                    let player = AVPlayer(url: videoURL! as URL)
+                    let playerViewController = AVPlayerViewController()
+                    playerViewController.player = player
+                    self.present(playerViewController, animated: true)
+                    {
+                       playerViewController.player!.play()
+                    }
+                } else {
+                    let vc = MembershipVC()
+                    let navigationController = UINavigationController(rootViewController: vc)
+                    self.present(navigationController, animated: true)
+                }
+            }
+        }
     }
     
 

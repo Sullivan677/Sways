@@ -19,20 +19,19 @@ class videoCell: UITableViewCell {
       }
     
     required init?(coder _: NSCoder) {
-             fatalError("init(coder:) has not been implemented")
-         }
+         fatalError("init(coder:) has not been implemented")
+     }
     
     func configureimageView() {
         courseImage.clipsToBounds = true
         courseImage.translatesAutoresizingMaskIntoConstraints = false
         courseImage.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         courseImage.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        courseImage.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        courseImage.topAnchor.constraint(equalTo: topAnchor).isActive = true
         courseImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         courseImage.heightAnchor.constraint(equalToConstant: 240).isActive = true
     }
   
-    
     func configureTitle() {
         courseTitle.numberOfLines = -1
         courseTitle.textColor = .black

@@ -1,6 +1,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import Purchases
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -15,10 +16,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 let home = TabBar()
                 home.selectedIndex = 1
                 self?.window?.rootViewController = home
+                
+                //Connect Firebase user id with RevenueCat user id (replacing anonymous id)
+                if let userUid = user?.uid {
+                    Purchases.shared.identify(userUid) { (purchaserInfo, error) in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
             } else {
                 print("Not Logged in")
                 let signup = SignUpVC()
                 self?.window?.rootViewController = signup
+                
+                //Reset RevenueCat user id back to anonymous
+                Purchases.shared.reset { (purchaserInfo, error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                }
             }
         }
         window?.overrideUserInterfaceStyle = .light
