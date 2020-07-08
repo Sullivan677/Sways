@@ -18,7 +18,7 @@ class TabBar: UITabBarController {
  
     func setupViewControllers() {
         viewControllers = [
-            generateNavigationController(for: CourseVC(), title: NSLocalizedString("Courses", comment: ""), image: UIImage(systemName: "video")!),
+            generateNavigationController(for: CourseVC(), title: NSLocalizedString("Videos", comment: ""), image: UIImage(systemName: "video")!),
             generateNavigationController(for: HomeVC(), title: NSLocalizedString("Live Class", comment: ""), image: UIImage(systemName: "play")!),
             generateNavigationController(for: ProfilVC(), title: NSLocalizedString("Profile", comment: ""), image: UIImage(systemName: "person")!)
         ]

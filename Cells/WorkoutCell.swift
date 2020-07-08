@@ -64,7 +64,7 @@ class WorkoutCell: UITableViewCell {
         seeMoreLabel.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
         seeMoreLabel.backgroundColor = .black
         seeMoreLabel.setTitleColor(.white, for: .disabled)
-        seeMoreLabel.layer.cornerRadius = 8
+        seeMoreLabel.layer.cornerRadius = 18
         seeMoreLabel.setTitle("Join Now", for: .disabled)
         seeMoreLabel.isEnabled = false
     }

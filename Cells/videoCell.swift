@@ -46,7 +46,7 @@ class videoCell: UITableViewCell {
         playButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
         playButton.backgroundColor = .black
         playButton.setTitleColor(.white, for: .disabled)
-        playButton.layer.cornerRadius = 8
+        playButton.layer.cornerRadius = 18
         playButton.setTitle("Play Now", for: .disabled)
         playButton.isEnabled = false
         playButton.translatesAutoresizingMaskIntoConstraints = false

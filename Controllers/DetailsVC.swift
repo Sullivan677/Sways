@@ -4,6 +4,8 @@ import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
 import Purchases
+import EventKit
+import EventKitUI
 
 class DetailsVC: UIViewController {
 
@@ -17,25 +19,18 @@ class DetailsVC: UIViewController {
     let scrollView = UIScrollView()
     let contentView = UIView()
     var expirationDate: Date?
+   let eventStore = EKEventStore()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"),
-                                                            style: .plain, target: self,
-                                                                   action: #selector(share))
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar.badge.plus"), style: .plain, target: self, action: #selector(NextCalendar))
         setupToolBar()
         setupButton()
         setupScrollView()
         setupViews()
         ChargeImagesfromURL()
-    }
- 
-    @objc func share() {
-        let item: [Any] = ["Check out the class, \(workout.classTitle) on Sways", URL(string: "https://apps.apple.com/app/id1504080698")!]
-        let vc = UIActivityViewController(activityItems: item, applicationActivities: nil)
-        present(vc, animated: true)
     }
     
     @objc func joinLiveButton() {
@@ -56,6 +51,31 @@ class DetailsVC: UIViewController {
         }
     }
     
+    @objc func NextCalendar() {
+        addEventToCalendar()
+    }
+    
+     func addEventToCalendar() {
+        
+        eventStore.requestAccess( to: EKEntityType.event, completion:{(granted, error) in
+            DispatchQueue.main.async {
+                if (granted) && (error == nil) {
+                    let event = EKEvent(eventStore: self.eventStore)
+                    event.title = "\(self.workout.classTitle)"
+                    event.startDate = self.workout.dateClass
+                    // event.url = self.workout.URLClass
+                    event.endDate = self.workout.dateClass + 3600
+                    let eventController = EKEventEditViewController()
+                    eventController.event = event
+                    eventController.eventStore = self.eventStore
+                    eventController.editViewDelegate = self
+                    self.present(eventController, animated: true, completion: nil)
+                    
+                }
+            }
+        })
+    }
+    
     func ChargeImagesfromURL() {
         if let url = URL(string: workout.classImage) {
             headerImage.kf.setImage(with: url)
@@ -73,7 +93,7 @@ class DetailsVC: UIViewController {
         scrollView.addSubview(contentView)
         scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: toolbar.topAnchor).isActive = true
         contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
@@ -95,7 +115,7 @@ class DetailsVC: UIViewController {
         bookingButton.backgroundColor = .black
         bookingButton.addTarget(self, action: #selector(joinLiveButton), for: .touchUpInside)
         bookingButton.setTitle("Join Live Class", for: .normal)
-        bookingButton.layer.cornerRadius = 12
+        bookingButton.layer.cornerRadius = 25
         bookingButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
         bookingButton.translatesAutoresizingMaskIntoConstraints = false
         bookingButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -218,5 +238,12 @@ class DetailsVC: UIViewController {
         return label
     }()
     
+}
+
+extension DetailsVC: EKEventEditViewDelegate {
+
+    func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
 

@@ -31,6 +31,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     func setupTableView() {
         view.addSubview(tableView)
         tableView.showsVerticalScrollIndicator = false
