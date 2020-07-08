@@ -62,13 +62,13 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     }
  
     @objc func openTerm() {
-        let safariVC = SFSafariViewController(url: (NSURL(string: "https://sways.app/termsandconditions.html"))! as URL)
+        let safariVC = SFSafariViewController(url: (NSURL(string: "https://www.sways.app/terms-of-service"))! as URL)
         present(safariVC, animated: true, completion: nil)
         safariVC.delegate = self
     }
     
     @objc func openPrivacy() {
-        let safariVC = SFSafariViewController(url: (NSURL(string: "https://sways.app/privacypolicy.html"))! as URL)
+        let safariVC = SFSafariViewController(url: (NSURL(string: "https://www.sways.app/privacy-policy"))! as URL)
            present(safariVC, animated: true, completion: nil)
            safariVC.delegate = self
        }
