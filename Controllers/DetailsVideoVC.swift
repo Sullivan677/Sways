@@ -44,12 +44,12 @@ class DetailsVideoVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    @objc func showRestoredAlert() {
-        let alert = UIAlertController(title: "Success!", message: "Your purchases were successfully restored.", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
+//    @objc func showRestoredAlert() {
+//        let alert = UIAlertController(title: "Success!", message: "Your purchases were successfully restored.", preferredStyle: .alert)
+//        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+//        alert.addAction(action)
+//        present(alert, animated: true, completion: nil)
+//    }
     
     func setupTableView() {
         view.addSubview(tableView)

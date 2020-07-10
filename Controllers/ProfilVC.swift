@@ -69,7 +69,7 @@ extension ProfilVC: UITableViewDataSource {
         if indexPath.section == 2 {
             let shareCell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
             shareCell.accessoryType = .disclosureIndicator
-            shareCell.textLabel?.text = "Share the app"
+            shareCell.textLabel?.text = NSLocalizedString("Share the app", comment: "")
             shareCell.textLabel?.font = .systemFont(ofSize: 20, weight: .medium)
             shareCell.selectionStyle = .none
             return shareCell

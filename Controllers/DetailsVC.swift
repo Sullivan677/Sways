@@ -114,7 +114,7 @@ class DetailsVC: UIViewController {
         view.addSubview(bookingButton)
         bookingButton.backgroundColor = .black
         bookingButton.addTarget(self, action: #selector(joinLiveButton), for: .touchUpInside)
-        bookingButton.setTitle("Join Live Class", for: .normal)
+        bookingButton.setTitle(NSLocalizedString("Join Live Class", comment: ""), for: .normal)
         bookingButton.layer.cornerRadius = 25
         bookingButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
         bookingButton.translatesAutoresizingMaskIntoConstraints = false
@@ -162,7 +162,7 @@ class DetailsVC: UIViewController {
         howitworksLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         howitworksLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 30).isActive = true
         howitworksLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
-        howitworksLabel.text = "How it works"
+        howitworksLabel.text = NSLocalizedString("How it works", comment: "")
         
         contentView.addSubview(termLabel)
         termLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true

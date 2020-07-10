@@ -100,7 +100,7 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     
     func setupPriceLabel() {
         view.addSubview(priceLabel)
-        priceLabel.text = "Get 7 days free. Then 19,99€ per month."
+        priceLabel.text = NSLocalizedString("Get 7 days free. Then 19,99€ per month", comment: "")
         priceLabel.textColor = .black
         priceLabel.font = .systemFont(ofSize: 16, weight: .regular)
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -112,7 +112,7 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         view.addSubview(subscribeButton)
         subscribeButton.backgroundColor = .black
         subscribeButton.addTarget(self, action: #selector(subscribeBtnWasPressed), for: .touchUpInside)
-        subscribeButton.setTitle("Start your membership", for: .normal)
+        subscribeButton.setTitle(NSLocalizedString("Start your membership", comment: ""), for: .normal)
         subscribeButton.layer.cornerRadius = 25
         subscribeButton.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
         subscribeButton.translatesAutoresizingMaskIntoConstraints = false
