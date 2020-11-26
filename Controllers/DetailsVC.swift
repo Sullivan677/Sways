@@ -19,7 +19,7 @@ class DetailsVC: UIViewController {
     let scrollView = UIScrollView()
     let contentView = UIView()
     var expirationDate: Date?
-   let eventStore = EKEventStore()
+    let eventStore = EKEventStore()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,45 +125,38 @@ class DetailsVC: UIViewController {
     }
     
     func setupViews() {
-        
         contentView.addSubview(titleLabel)
         titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
         titleLabel.text = "\(workout.classTitle)"
-        
         contentView.addSubview(headerImage)
         headerImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
         headerImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 50).isActive = true
         headerImage.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         headerImage.heightAnchor.constraint(equalToConstant: 390).isActive = true
         headerImage.image = UIImage(named: "\(workout.classImage)")
-        
         contentView.addSubview(profilImage)
         profilImage.topAnchor.constraint(equalTo: headerImage.bottomAnchor, constant: -70).isActive = true
         profilImage.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         profilImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
         profilImage.heightAnchor.constraint(equalToConstant: 140).isActive = true
         profilImage.image = UIImage(named: "\(workout.pictureTrainer)")
-        
         contentView.addSubview(dateLabel)
         dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         dateLabel.topAnchor.constraint(equalTo: profilImage.bottomAnchor, constant: 20).isActive = true
         dateLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
         dateLabel.text = "Join the live session held in \(workout.language) on \(workout.dateString), \(workout.time ?? "")"
-        
         contentView.addSubview(descriptionLabel)
         descriptionLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         descriptionLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 20).isActive = true
         descriptionLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
         descriptionLabel.text = "\(workout.description)"
-        
         contentView.addSubview(howitworksLabel)
         howitworksLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         howitworksLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 30).isActive = true
         howitworksLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
         howitworksLabel.text = NSLocalizedString("How it works", comment: "")
-        
         contentView.addSubview(termLabel)
         termLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         termLabel.topAnchor.constraint(equalTo: howitworksLabel.bottomAnchor, constant: 5).isActive = true
@@ -237,7 +230,6 @@ class DetailsVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
 }
 
 extension DetailsVC: EKEventEditViewDelegate {

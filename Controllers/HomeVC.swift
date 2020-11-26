@@ -39,10 +39,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         view.addSubview(tableView)
         tableView.showsVerticalScrollIndicator = false
         tableView.allowsSelection = true
+        tableView.isUserInteractionEnabled = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
     }
     
@@ -59,7 +61,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
      }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 480
+        return view.bounds.height
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

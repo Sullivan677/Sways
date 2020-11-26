@@ -23,7 +23,6 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         setupPriceLabel()
         setupScrollView()
         setupViews()
-        
         loadOffering()
     }
     
@@ -62,13 +61,13 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
     }
  
     @objc func openTerm() {
-        let safariVC = SFSafariViewController(url: (NSURL(string: "https://www.sways.app/terms-of-service"))! as URL)
+        let safariVC = SFSafariViewController(url: (NSURL(string: "https://apple.com"))! as URL)
         present(safariVC, animated: true, completion: nil)
         safariVC.delegate = self
     }
     
     @objc func openPrivacy() {
-        let safariVC = SFSafariViewController(url: (NSURL(string: "https://www.sways.app/privacy-policy"))! as URL)
+        let safariVC = SFSafariViewController(url: (NSURL(string: "https://apple.com"))! as URL)
            present(safariVC, animated: true, completion: nil)
            safariVC.delegate = self
        }
@@ -213,7 +212,7 @@ class MembershipVC: UIViewController, SFSafariViewControllerDelegate {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
-        image.image = UIImage(named: "yoga-eleonora")
+        image.image = UIImage(named: "yoga-pose")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()

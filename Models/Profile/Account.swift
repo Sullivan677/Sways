@@ -12,13 +12,15 @@ struct Row {
 }
 
 var dataSource = [
-SectionAccount(title: "About", rows: [Row(title: NSLocalizedString("Customer Support", comment: ""), subtitle: NSLocalizedString("Chat with us", comment: ""), URL: "https://drift.me/sullivan"),
-                               Row(title: "Instagram", subtitle: NSLocalizedString("Follow our journey", comment: ""), URL: "https://www.instagram.com/sways_app/"),
-                               Row(title: NSLocalizedString("Become a partner", comment: ""), subtitle: NSLocalizedString("List you classes", comment: ""), URL: "https://sullivandecarli.typeform.com/to/kyEZ9Lqk")
+
+SectionAccount(title: "About", rows: [Row(title: NSLocalizedString("Customer Support", comment: ""), subtitle: NSLocalizedString("Chat with us", comment: ""), URL: "https://apple.com"),
+                               Row(title: "Instagram", subtitle: NSLocalizedString("Follow our journey", comment: ""), URL: "https://apple.com"),
+                               Row(title: NSLocalizedString("Become a partner", comment: ""), subtitle: NSLocalizedString("List you classes", comment: ""), URL: "https://apple.com")
     
 ]),
-SectionAccount(title: "Legal", rows: [Row(title: "Terms & Conditions", subtitle: NSLocalizedString("Read our terms of services", comment: ""), URL: "https://www.sways.app/terms-of-service"),
-                               Row(title: "Privacy Policy", subtitle: NSLocalizedString("How we proccess your datas", comment: ""), URL: "https://www.sways.app/privacy-policy")
-    
-])
+    SectionAccount(title: "Legal", rows: [Row(title: "Terms & Conditions", subtitle: NSLocalizedString("Read our terms of services", comment: ""), URL: "https://apple.com"),
+                                   Row(title: "Privacy Policy", subtitle: NSLocalizedString("How we proccess your datas", comment: ""), URL: "https://apple.com")
+        
+    ])
+
 ]

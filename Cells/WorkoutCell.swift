@@ -81,7 +81,7 @@ class WorkoutCell: UITableViewCell {
         classImage.translatesAutoresizingMaskIntoConstraints = false
         classImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
         classImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
-        classImage.heightAnchor.constraint(equalToConstant: 470).isActive = true
+        classImage.heightAnchor.constraint(equalToConstant: self.frame.size.height).isActive = true
         classImage.clipsToBounds = true
     }
     

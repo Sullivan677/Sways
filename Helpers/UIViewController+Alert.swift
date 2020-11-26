@@ -1,11 +1,3 @@
-//
-//  UIViewController+Alert.swift
-//  Sways
-//
-//  Created by Joe Benton on 06/07/2020.
-//  Copyright © 2020 Sullivan De carli. All rights reserved.
-//
-
 import UIKit
 
 extension UIViewController {

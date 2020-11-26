@@ -1,4 +1,4 @@
-platform :ios, '13.2'
+platform :ios, '13.3'
 
 target 'Sways' do
 

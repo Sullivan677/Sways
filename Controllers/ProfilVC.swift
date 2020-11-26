@@ -40,12 +40,17 @@ class ProfilVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDel
       }
     
     func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 3  {
+        if indexPath.section == 4  {
             SignOut()
         } else if indexPath.section == 2 {
             let item: [Any] = ["Check out Sways", URL(string: "https://apps.apple.com/app/id1504080698")!]
             let vc = UIActivityViewController(activityItems: item, applicationActivities: nil)
             present(vc, animated: true)
+        } else if indexPath.section == 3 {
+            //link to referalVC
+            let safariVC = SFSafariViewController(url: (NSURL(string: "https://sullivandecarli.typeform.com/to/ZlmcNw5H")! as? URL)!)
+            present(safariVC, animated: true, completion: nil)
+            safariVC.delegate = self
         } else {
             let row = dataSource[indexPath.section].rows[indexPath.row]
             let safariVC = SFSafariViewController(url: (NSURL(string: row.URL!)! as? URL)!)
@@ -66,6 +71,16 @@ class ProfilVC: UIViewController, UITableViewDelegate, SFSafariViewControllerDel
 extension ProfilVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 3 {
+            let referalCell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+            referalCell.accessoryType = .disclosureIndicator
+            referalCell.textLabel?.text = NSLocalizedString("Refered by a trainer?", comment: "")
+            referalCell.detailTextLabel?.text = NSLocalizedString("Get your travel yoga mat", comment: "")
+            referalCell.textLabel?.font = .systemFont(ofSize: 20, weight: .medium)
+            referalCell.detailTextLabel?.font = .systemFont(ofSize: 18, weight: .regular)
+            referalCell.selectionStyle = .none
+            return referalCell
+        }
         if indexPath.section == 2 {
             let shareCell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
             shareCell.accessoryType = .disclosureIndicator
@@ -73,7 +88,7 @@ extension ProfilVC: UITableViewDataSource {
             shareCell.textLabel?.font = .systemFont(ofSize: 20, weight: .medium)
             shareCell.selectionStyle = .none
             return shareCell
-        } else if indexPath.section == 3 {
+        } else if indexPath.section == 4 {
             let authCell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
             authCell.accessoryType = .disclosureIndicator
             authCell.textLabel?.text = "Log Out"
@@ -101,15 +116,17 @@ extension ProfilVC: UITableViewDataSource {
             return "About"
         } else if section == 1 {
             return "Legal"
-        }  else if section == 2 {
+        } else if section == 2 {
             return "Share"
+        }  else if section == 3 {
+            return "Referral"
         } else {
             return ""
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
